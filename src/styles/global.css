@@ -84,10 +84,10 @@ hr { border: 0; border-top: 1px solid var(--sep); margin: 0; }
 @keyframes hint-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 .hero-photo-wrap:hover .hero-photo { transform: scale(1.02); }
 .bubbles { position: absolute; inset: 0; pointer-events: none; }
-.bubble { position: absolute; width: 62%; height: 62%; opacity: 0; transform: scale(0.3); transition: transform 0.5s cubic-bezier(.2,.9,.3,1.3), opacity 0.3s; filter: drop-shadow(0 8px 18px rgb(27 53 95 / 0.18)); }
-.bubble.b1 { left: -4%; top: -6%; }
-.bubble.b2 { right: -4%; bottom: -6%; transition-delay: 0.08s; }
-.bubble-text { font-family: var(--font); font-size: 10.5px; font-weight: 600; letter-spacing: 1.6px; fill: var(--navy); text-transform: uppercase; }
+.bubble { position: absolute; width: 78%; height: 78%; opacity: 0; transform: scale(0.3); transition: transform 0.5s cubic-bezier(.2,.9,.3,1.3), opacity 0.3s; filter: drop-shadow(0 8px 18px rgb(27 53 95 / 0.18)); }
+.bubble.b1 { left: -14%; top: -14%; }
+.bubble.b2 { right: -14%; bottom: -12%; transition-delay: 0.08s; }
+.bubble-text { font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; fill: var(--navy); text-transform: uppercase; }
 .hero-photo-wrap.is-open .hero-photo { transform: scale(0.35); opacity: 0; visibility: hidden; transition: transform 0.45s cubic-bezier(.2,.8,.2,1), opacity 0.35s, visibility 0s 0.45s; }
 .hero-photo-wrap.is-open .hero-hint { opacity: 0; transform: scale(0.5); }
 .hero-photo-wrap.is-open .bubble { opacity: 1; transform: scale(1); }

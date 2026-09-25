@@ -38,24 +38,24 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
         <svg class="bubble b1" viewBox="0 0 200 200">
           <defs>
             <clipPath id="clip-b1"><circle cx="100" cy="100" r="74" /></clipPath>
-            <path id="path-b1" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" />
+            <path id="path-b1" d="M100,100 m0,88 a88,88 0 1,1 0,-176 a88,88 0 1,1 0,176" />
             <linearGradient id="ring-b1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b355f" /><stop offset="1" stop-color="#4a7ac4" /></linearGradient>
           </defs>
           <circle cx="100" cy="100" r="98" fill="#fff" />
           <circle cx="100" cy="100" r="79" fill="none" stroke="url(#ring-b1)" stroke-width="3" />
           <image href="/images/fun/nephew.webp" x="26" y="26" width="148" height="148" clip-path="url(#clip-b1)" preserveAspectRatio="xMidYMid slice" />
-          <text class="bubble-text"><textPath href="#path-b1" startOffset="50%" text-anchor="middle">MY NEPHEW 👶 · MY NEPHEW 👶 ·</textPath></text>
+          <text class="bubble-text"><textPath href="#path-b1" startOffset="50%" text-anchor="middle">MY NEPHEW 👶</textPath></text>
         </svg>
         <svg class="bubble b2" viewBox="0 0 200 200">
           <defs>
             <clipPath id="clip-b2"><circle cx="100" cy="100" r="74" /></clipPath>
-            <path id="path-b2" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" />
+            <path id="path-b2" d="M100,100 m0,88 a88,88 0 1,1 0,-176 a88,88 0 1,1 0,176" />
             <linearGradient id="ring-b2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a5aa3" /><stop offset="1" stop-color="#3aa0c8" /></linearGradient>
           </defs>
           <circle cx="100" cy="100" r="98" fill="#fff" />
           <circle cx="100" cy="100" r="79" fill="none" stroke="url(#ring-b2)" stroke-width="3" />
           <image href="/images/fun/psy.webp" x="26" y="26" width="148" height="148" clip-path="url(#clip-b2)" preserveAspectRatio="xMidYMid slice" />
-          <text class="bubble-text"><textPath href="#path-b2" startOffset="50%" text-anchor="middle">PSY SUMMER SWAG 2026 💦 · PSY SUMMER SWAG 2026 💦 ·</textPath></text>
+          <text class="bubble-text"><textPath href="#path-b2" startOffset="50%" text-anchor="middle">PSY SUMMER SWAG 2026 💦</textPath></text>
         </svg>
       </div>
     </div>
@@ -165,5 +165,6 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
     wrap.setAttribute('aria-pressed', String(open));
   }
   wrap?.addEventListener('click', toggle);
+  if (location.hash === '#story') toggle();
   wrap?.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
 </script>
