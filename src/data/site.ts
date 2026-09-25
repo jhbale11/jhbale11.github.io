@@ -16,7 +16,7 @@ export const site = {
   scholar: 'https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en',
   github: 'https://github.com/jhbale11',
   cvPdf: '/cv/Junghwan_Kim_CV.pdf',
-  tagline: 'HCI researcher building LLM-augmented interfaces for domain experts.',
+  tagline: 'HAI & LLM researcher studying human-centered interactive systems: externalizing expert tacit knowledge into structures people can see and handle.',
   thesis: 'Interface design, not model capability, is the primary bottleneck for expert use of large language models.',
 };
 
