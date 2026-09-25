@@ -5,6 +5,7 @@ const publications = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/publications' }),
   schema: z.object({
     title: z.string(),
+    titleEn: z.string().optional(),
     authors: z.array(
       z.object({
         name: z.string(),

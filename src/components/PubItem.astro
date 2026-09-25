@@ -1,23 +1,30 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Authors from './Authors.astro';
-import Badges from './Badges.astro';
 import PubLinks from './PubLinks.astro';
 
-interface Props { pub: CollectionEntry<'publications'> }
-const { pub } = Astro.props;
+interface Props { pub: CollectionEntry<'publications'>; showThumb?: boolean }
+const { pub, showThumb = true } = Astro.props;
 const d = pub.data;
 const href = `/publications/${pub.id}`;
+const hasThumb = showThumb && !!d.teaser;
 ---
-<li class="pub card" data-category={d.category} data-year={d.year}>
-  <a href={href} class:list={['pub-thumb', { 'placeholder-bg': !d.teaser }]} aria-hidden="true" tabindex="-1">
-    {d.teaser ? <img src={d.teaser} alt="" loading="lazy" /> : <span class="placeholder">{d.venueShort}</span>}
-  </a>
-  <div class="pub-body">
-    <div class="pub-title"><a href={href}>{d.title}</a></div>
+<li class:list={['pub', { 'has-thumb': hasThumb }]} data-category={d.category} data-first={d.category === 'first-author' ? '1' : '0'}>
+  {hasThumb && (
+    <a class="thumb" href={href} aria-hidden="true" tabindex="-1"><img src={d.teaser} alt="" loading="lazy" /></a>
+  )}
+  <div class="pub-main">
+    {d.award && <div class="pub-top"><span class="award">🏆 {d.award}</span></div>}
+    <div class="pub-title">
+      <a href={href}>{d.title}</a>
+      {d.titleEn && <span class="en">{d.titleEn}</span>}
+    </div>
     <Authors authors={d.authors} />
-    <div class="pub-venue"><span class="short">{d.venueShort}</span> · {d.venue}{d.pages ? `, ${d.pages}` : ''}</div>
-    <Badges award={d.award} status={d.status} presentation={d.presentation} format={d.format} />
+    <div class="venue-line">
+      <span class="vtag">{d.venueShort}</span>
+      <span>{d.format}{d.presentation ? ` · ${d.presentation}` : ''}</span>
+      {d.status && <span class="stat">· {d.status}</span>}
+    </div>
     <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} />
   </div>
 </li>

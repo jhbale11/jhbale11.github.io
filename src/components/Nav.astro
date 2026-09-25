@@ -9,12 +9,10 @@ const links = [
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
 ---
 <header class="nav">
-  <div class="container nav-inner">
-    <a class="brand" href="/">{site.name} <span class="ko">{site.koreanName}</span></a>
+  <div class="wrap nav-in">
+    <a class="brand" href="/">{site.name}</a>
     <nav class="nav-links" aria-label="Primary">
-      {links.map((l) => (
-        <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
-      ))}
+      {links.map((l) => <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>)}
       <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -23,12 +21,10 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href
   </div>
 </header>
 <script>
-  const btn = document.querySelector('.theme-btn');
-  btn?.addEventListener('click', () => {
+  document.querySelector('.theme-btn')?.addEventListener('click', () => {
     const root = document.documentElement;
     const explicit = root.getAttribute('data-theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = explicit ? explicit === 'dark' : systemDark;
+    const isDark = explicit ? explicit === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
     const next = isDark ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch {}

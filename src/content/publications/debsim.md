@@ -12,14 +12,12 @@ category: first-author
 format: "Full Paper"
 award: "Best Full Paper Award"
 teaser: "/images/publications/debsim.webp"
-teaserAlt: "DEBSIM interface with three friction points: editable Toulmin claim cards, keyword selection and evidence search, an auto-generated speech outline, and a counterargument simulation chat"
-areas: [Human-AI Interaction, Education, LLM Tutoring]
+teaserAlt: "The DEBSIM interface with three friction points: (A) topic selection and stance, (B) argument formation with editable Toulmin claim cards, (C) keyword selection and evidence search with source verification, (D) auto-generated speech outline, and (E) counterargument simulation chat"
+pdf: "/papers/2026-debsim.pdf"
+areas: [Argumentation tutoring, Intelligent tutoring systems, Adaptive scaffolding, Assistance dilemma, Learning transfer, Productive friction, LLM-based pedagogical agents]
 selected: true
 order: 2
-abstractSource: overview
 bibkey: kim2026debsim
 ---
 
-DEBSIM is an LLM-based tutoring system for argumentation that deliberately introduces *productive friction*: moments where the learner must do the reasoning work themselves instead of accepting a fluent answer from the model. The interface builds friction into three points of the debate-preparation workflow. Learners first structure their position as editable Toulmin claim cards, then choose keywords and search for supporting evidence, and finally rehearse against a counterargument simulation chat that pushes back on their reasoning. An automatically generated speech outline ties the pieces together.
-
-The paper examines whether this friction supports learning transfer, the ability to argue well in new situations without the tutor, rather than only performance while the tutor is present. It received the Best Full Paper Award at ACM ITS 2026.
+Most argumentation tutoring systems evaluate in-system performance rather than learning transfer, and the generative capabilities of large language models (LLMs) risk bypassing the effortful cognitive processes that tutoring aims to develop, a tension known as the *assistance dilemma*. We present DEBSIM, an LLM-based argumentation tutoring system that addresses this dilemma through *productive friction*, scaffolding debate preparation across three stages (Toulmin knowledge component structuring, evidence validation with verification friction, and counterargument simulation) while requiring learner effort at cognitively meaningful decision points. In a within-subjects experiment (N=20), participants prepared with DEBSIM for one debate topic and without it for another, then engaged in live debates without system access. Participants in the DEBSIM condition produced openings with higher knowledge component completeness and shifted toward evidence-based discourse patterns. These findings offer a transfer-based evaluation methodology for argumentation tutoring, preliminary evidence that productive friction can help address the assistance dilemma in the LLM era, and an inner/outer-loop scaffolding architecture for supporting argumentation skill transfer from AI-assisted preparation to unassisted performance.

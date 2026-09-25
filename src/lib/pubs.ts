@@ -29,6 +29,27 @@ export async function getPubs(): Promise<Pub[]> {
   return sortPubs(await getCollection('publications'));
 }
 
+export type GroupKey = 'papers' | 'short' | 'preprints' | 'domestic';
+export const groupLabel: Record<GroupKey, string> = {
+  papers: 'Conference Papers & Journal Articles',
+  short: 'Posters, Extended Abstracts & Workshop Papers',
+  preprints: 'Preprints',
+  domestic: 'Domestic Publications (HCI Korea)',
+};
+export function groupKey(p: Pub): GroupKey {
+  const d = p.data;
+  if (d.category === 'preprint') return 'preprints';
+  if (d.category === 'domestic') return 'domestic';
+  if (/poster|extended abstract|workshop|demo/i.test(d.format)) return 'short';
+  return 'papers';
+}
+export function groupByType(pubs: Pub[]): { key: GroupKey; label: string; pubs: Pub[] }[] {
+  const order: GroupKey[] = ['papers', 'short', 'preprints', 'domestic'];
+  return order
+    .map((key) => ({ key, label: groupLabel[key], pubs: pubs.filter((p) => groupKey(p) === key) }))
+    .filter((g) => g.pubs.length > 0);
+}
+
 export function groupByYear(pubs: Pub[]): { year: number; pubs: Pub[] }[] {
   const map = new Map<number, Pub[]>();
   for (const p of pubs) {

@@ -1,63 +1,43 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PubItem from '../../components/PubItem.astro';
-import { getPubs, groupByYear, categoryLabel } from '../../lib/pubs';
+import { getPubs, groupByType } from '../../lib/pubs';
 
 const pubs = await getPubs();
-const groups = groupByYear(pubs);
-const cats = Object.entries(categoryLabel) as [keyof typeof categoryLabel, string][];
-const count = (c: string) => pubs.filter((p) => p.data.category === c).length;
+const groups = groupByType(pubs);
+const firstCount = pubs.filter((p) => p.data.category === 'first-author').length;
 ---
 <Base title="Publications" description="Publications by Junghwan Kim: HCI, LLM-augmented interfaces for domain experts, and human-AI collaboration.">
-  <section class="section" style="padding-top: 2.5rem">
-    <div class="container">
-      <div class="eyebrow">Research output</div>
-      <h1 style="margin: 0.3rem 0 0.6rem">Publications</h1>
-      <p class="muted" style="max-width: 60ch">
-        Peer-reviewed papers, preprints and domestic (HCI Korea) publications. Each entry has its own page with an
-        abstract, links and BibTeX.
-      </p>
-      <p class="legend"><sup>†</sup> equal contribution / co-first author · 🏆 award-winning paper</p>
-
-      <div class="filters" role="group" aria-label="Filter publications">
-        <button type="button" data-filter="all" aria-pressed="true">All ({pubs.length})</button>
-        {cats.map(([key, label]) => (
-          <button type="button" data-filter={key} aria-pressed="false">{label} ({count(key)})</button>
-        ))}
-      </div>
-
-      {groups.map((g) => (
-        <div class="year-group" data-year={g.year}>
-          <div class="year-head"><h2>{g.year}</h2></div>
-          <ul class="pub-list">
-            {g.pubs.map((p) => <PubItem pub={p} />)}
-          </ul>
-        </div>
-      ))}
+  <section class="wrap" style="padding-top: 2.5rem">
+    <div class="sec-head" style="margin-bottom: 0.5rem">
+      <h1>Publications</h1>
+      <a href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar →</a>
     </div>
+    <p class="muted" style="max-width: 60ch">{pubs.length} publications. Each entry has its own page with the abstract, links and BibTeX.</p>
+    <div class="toolbar">
+      <button class="toggle" type="button" aria-pressed="false" data-first-toggle><span class="knob" aria-hidden="true"></span>First-author only ({firstCount})</button>
+      <span class="legend" style="margin: 0"><sup>†</sup> equal contribution · 🏆 award</span>
+    </div>
+
+    {groups.map((g) => (
+      <div class="group" data-group={g.key}>
+        <h2>{g.label}</h2>
+        <ul class="plist">{g.pubs.map((p) => <PubItem pub={p} />)}</ul>
+      </div>
+    ))}
   </section>
 </Base>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const btn = document.querySelector<HTMLButtonElement>('[data-first-toggle]');
   const items = document.querySelectorAll<HTMLElement>('.pub');
-  const groups = document.querySelectorAll<HTMLElement>('.year-group');
-
-  function apply(filter: string) {
-    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
-    items.forEach((el) => {
-      el.hidden = filter !== 'all' && el.dataset.category !== filter;
-    });
-    groups.forEach((g) => {
-      g.hidden = !g.querySelector('.pub:not([hidden])');
-    });
-    try {
-      if (filter === 'all') history.replaceState(null, '', location.pathname);
-      else history.replaceState(null, '', `${location.pathname}?filter=${filter}`);
-    } catch {}
+  const groups = document.querySelectorAll<HTMLElement>('.group');
+  function apply(on: boolean) {
+    btn?.setAttribute('aria-pressed', String(on));
+    items.forEach((el) => { el.hidden = on && el.dataset.first !== '1'; });
+    groups.forEach((g) => { g.hidden = !g.querySelector('.pub:not([hidden])'); });
+    try { history.replaceState(null, '', on ? '?first=1' : location.pathname); } catch {}
   }
-
-  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')));
-  const initial = new URLSearchParams(location.search).get('filter');
-  if (initial && [...buttons].some((b) => b.dataset.filter === initial)) apply(initial);
+  btn?.addEventListener('click', () => apply(btn.getAttribute('aria-pressed') !== 'true'));
+  if (new URLSearchParams(location.search).get('first') === '1') apply(true);
 </script>

@@ -3,8 +3,8 @@ import { site } from '../data/site';
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
-  <div class="container footer-inner">
-    <div>© {year} {site.name}. <a href={site.labUrl} target="_blank" rel="noopener">Human-Centered Computing Lab</a>, Seoul National University.</div>
-    <div><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a> · <a href={site.github} target="_blank" rel="noopener">GitHub</a></div>
+  <div class="wrap">
+    <div>© {year} {site.name} · <a href={site.labUrl} target="_blank" rel="noopener">HCC Lab</a>, Seoul National University</div>
+    <div><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.scholar} target="_blank" rel="noopener">Google Scholar</a> · <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a></div>
   </div>
 </footer>

@@ -4,12 +4,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  type?: string;
-}
+interface Props { title?: string; description?: string; image?: string; type?: string }
 const { title, description = site.tagline, image = '/images/profile.jpg', type = 'website' } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}, ${site.university}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -24,28 +19,24 @@ const ogImage = new URL(image, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" content="#0b1a33" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#1b355f" />
     <script is:inline>
-      (function () {
-        try {
-          var t = localStorage.getItem('theme');
-          if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
-        } catch (e) {}
-      })();
+      (function () { try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
     </script>
     <slot name="head" />
   </head>
   <body>
     <Nav />
-    <main>
-      <slot />
-    </main>
+    <main><slot /></main>
     <Footer />
   </body>
 </html>

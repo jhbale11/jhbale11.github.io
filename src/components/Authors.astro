@@ -1,13 +1,11 @@
 ---
 interface Author { name: string; me?: boolean; equal?: boolean }
-interface Props { authors: Author[]; class?: string; inline?: boolean }
-const { authors, class: cls, inline = false } = Astro.props;
+interface Props { authors: Author[]; inline?: boolean; class?: string }
+const { authors, inline = false, class: cls } = Astro.props;
 const Tag = inline ? 'span' : 'div';
 ---
-<Tag class:list={['pub-authors', cls]}>
+<Tag class:list={['authors', cls]}>
   {authors.map((a, i) => (
-    <>
-      <span class:list={{ me: a.me }}>{a.name}</span>{a.equal && <sup>†</sup>}{i < authors.length - 1 ? ', ' : ''}
-    </>
+    <><span class:list={{ me: a.me }}>{a.name}</span>{a.equal && <sup>†</sup>}{i < authors.length - 1 ? ', ' : ''}</>
   ))}
 </Tag>

@@ -15,7 +15,7 @@ url: "https://doi.org/10.1145/3830397.3841808"
 teaser: "/images/publications/tonecanvas.webp"
 teaserAlt: "ToneCanvas manuscript editor with watercolor tone overlays, a tone palette with sliders and live preview, and character layers with reusable tone chips"
 areas: [Human-AI Interaction, Creative Writing, Narrative Consistency]
-selected: false
+selected: true
 order: 4
 abstractSource: overview
 bibkey: kim2026tonecanvas

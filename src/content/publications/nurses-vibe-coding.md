@@ -1,8 +1,8 @@
 ---
 title: "When Nurses Meet Vibe-Coding: Shifting from Problem Talk to Situated Specification in Participatory Design"
 authors:
-  - { name: Junghwan Kim, me: true }
-  - { name: Kieun Park }
+  - { name: Junghwan Kim, me: true, equal: true }
+  - { name: Kieun Park, equal: true }
   - { name: Jeongwoo Ryu }
   - { name: Hyungwoo Song }
   - { name: Bongwon Suh }
@@ -13,9 +13,11 @@ category: first-author
 format: "Extended Abstract"
 doi: "https://doi.org/10.1145/3772363.3798470"
 url: "https://doi.org/10.1145/3772363.3798470"
-pdf: "https://dl.acm.org/doi/pdf/10.1145/3772363.3798470"
-areas: [Participatory Design, Health Informatics, LLM-Assisted Prototyping]
-selected: false
+pdf: "/papers/2026-nurses-vibe-coding.pdf"
+teaser: "/images/publications/nurses-vibe-coding.webp"
+teaserAlt: "Overview of the 110-minute participatory design workshop with five nurses: a pre-session, three phases (initial exploration, discovery and selection, vibe coding) and a post-session"
+areas: [Participatory Design, Vibe Coding, Real-Time Prototyping, User Engagement, Co-Design]
+selected: true
 order: 6
 bibkey: kim2026nurses
 ---
