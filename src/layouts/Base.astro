@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
 
 interface Props { title?: string; description?: string; image?: string; type?: string }
-const { title, description = site.tagline, image = '/images/profile.jpg', type = 'website' } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · HCI researcher, ${site.university}`;
+const { title, description = site.tagline, image = '/og.png', type = 'website' } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} (김정환) · HAI & LLM Researcher, ${site.university}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -19,15 +19,26 @@ const ogImage = new URL(image, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <meta name="author" content={site.name} />
     <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${site.name} · HAI & LLM Researcher`} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#ffffff" />
     <slot name="head" />
   </head>

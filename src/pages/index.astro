@@ -13,6 +13,23 @@ const past = news.filter((n) => !n.upcoming);
 const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces', '⚖️ Legal Tech', '🩺 Health Informatics', '📚 Education', '✍️ Writing & Translation'];
 ---
 <Base>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: site.name,
+      alternateName: site.koreanName,
+      url: 'https://jhbale11.github.io/',
+      image: 'https://jhbale11.github.io/images/profile.jpg',
+      email: `mailto:${site.email}`,
+      jobTitle: 'Ph.D. Candidate, HAI & LLM Researcher',
+      affiliation: { '@type': 'Organization', name: site.university, url: site.universityUrl },
+      worksFor: { '@type': 'Organization', name: site.lab, url: site.labUrl },
+      alumniOf: { '@type': 'Organization', name: site.university },
+      sameAs: [site.scholar, site.linkedin, site.github, site.labUrl],
+      knowsAbout: ['Human-Computer Interaction', 'Human-AI Interaction', 'Large Language Models', 'Interactive Systems'],
+    })} />
+  </Fragment>
   <section class="wrap hero">
     <img class="hero-photo" src="/images/profile.jpg" alt={`Portrait of ${site.name}`} width="290" height="290" />
     <div>
@@ -51,7 +68,7 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
 
   <section class="wrap section" id="research">
     <h2 class="h2-bar">Research Highlights ✨<a class="side" href="/publications">view all {pubs.length} →</a></h2>
-    <p class="lead lead-line">Interactive systems that <b>externalize expert tacit knowledge</b>, at the intersection of <span class="em">human-AI interaction</span> and <span class="em">LLM systems</span>.</p>
+    <p class="lead lead-line"><span class="nb">Interactive systems that <b>externalize expert tacit knowledge</b>,</span> <span class="nb">at the intersection of <span class="em">human-AI interaction</span> and <span class="em">LLM systems</span>.</span></p>
     <div class="carousel" data-carousel>
       <button class="car-btn l" type="button" aria-label="Previous" data-dir="-1">←</button>
       <div class="car-track" data-track>
