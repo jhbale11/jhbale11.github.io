@@ -1,71 +1,75 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PubItem from '../../components/PubItem.astro';
-import { getPubs, groupByYear } from '../../lib/pubs';
+import PubCard from '../../components/PubCard.astro';
+import { getPubs } from '../../lib/pubs';
 
 const pubs = await getPubs();
-const years = groupByYear(pubs);
-const filters = [
-  { key: 'all', label: 'All' },
-  { key: 'first', label: '⭐ First-author' },
-  { key: 'papers', label: 'Full papers & journals' },
-  { key: 'short', label: 'Posters & extended abstracts' },
-  { key: 'preprints', label: 'Preprints' },
-  { key: 'domestic', label: '🇰🇷 Domestic' },
+const types = [
+  { key: 'all', label: 'all' },
+  { key: 'first', label: '⭐ first-author' },
+  { key: 'papers', label: 'full papers & journals' },
+  { key: 'short', label: 'posters & extended abstracts' },
+  { key: 'preprints', label: 'preprints' },
+  { key: 'domestic', label: '🇰🇷 domestic' },
+];
+const tags = [
+  { key: 'hai', label: 'human-AI interaction' },
+  { key: 'legal', label: 'legal' },
+  { key: 'health', label: 'healthcare' },
+  { key: 'edu', label: 'education' },
+  { key: 'creative', label: 'writing & translation' },
+  { key: 'agents', label: 'LLM agents' },
+  { key: 'vis', label: 'visualization' },
 ];
 ---
 <Base title="Publications" description="Publications by Junghwan Kim: HCI, LLM-augmented interfaces for domain experts, and human-AI collaboration.">
   <section class="wrap" style="padding-top: 2rem">
-    <p class="page-title">📚 Publications</p>
-    <p class="small muted" style="margin-top: 0.25rem">{pubs.length} publications · <sup>†</sup> equal contribution · <a href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></p>
-
-    <div class="pub-layout">
-      <aside class="year-nav" aria-label="Jump to year">
-        {years.map((y, i) => <a href={`#y${y.year}`} class:list={{ 'is-active': i === 0 }} data-year={y.year}>{y.year}</a>)}
-      </aside>
-      <div class="pub-main">
-        <div class="filter-row" role="group" aria-label="Filter">
-          {filters.map((f) => <button type="button" data-filter={f.key} aria-pressed={f.key === 'all' ? 'true' : 'false'}>{f.label}</button>)}
-        </div>
-        <div class="type-legend">
-          <span><i class="dot full"></i>Full paper / journal</span>
-          <span><i class="dot short"></i>Poster / extended abstract</span>
-          <span><i class="dot preprint"></i>Preprint</span>
-          <span><i class="dot domestic"></i>Domestic</span>
-        </div>
-        {years.map((y) => (
-          <section class="year-sec" id={`y${y.year}`} data-year={y.year}>
-            <p class="year-label">{y.year}</p>
-            {y.pubs.map((p) => <PubItem pub={p} />)}
-          </section>
-        ))}
-      </div>
+    <h2 class="h2-bar">Publications 📚<a class="side" href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">google scholar ↗</a></h2>
+    <p class="lead">{pubs.length} publications. Every card links to a detail page with the abstract, links and BibTeX.</p>
+    <div class="filters" role="group" aria-label="Filter by type">
+      <span class="lbl">type</span>
+      {types.map((t) => <button type="button" data-type={t.key} aria-pressed={t.key === 'all' ? 'true' : 'false'}>{t.label}</button>)}
     </div>
+    <div class="filters" role="group" aria-label="Filter by tag">
+      <span class="lbl">tag</span>
+      <button type="button" data-tag="all" aria-pressed="true">all</button>
+      {tags.map((t) => <button type="button" data-tag={t.key} aria-pressed="false"><i class="dot" style={`background: var(--t-${t.key})`}></i>{t.label}</button>)}
+    </div>
+    <p class="pub-note">* denotes equal contribution · 🏆 award-winning paper</p>
+    <div class="rgrid" id="pubs">
+      {pubs.map((p) => <PubCard pub={p} />)}
+    </div>
+    <p class="empty" id="empty">No publications match these filters.</p>
   </section>
 </Base>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-row button');
-  const items = document.querySelectorAll<HTMLElement>('.pub-item');
-  const secs = document.querySelectorAll<HTMLElement>('.year-sec');
-  const yearLinks = document.querySelectorAll<HTMLAnchorElement>('.year-nav a');
-  function apply(f: string) {
-    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
-    items.forEach((el) => {
-      el.hidden = f === 'all' ? false : f === 'first' ? el.dataset.first !== '1' : el.dataset.type !== f;
+  const typeBtns = document.querySelectorAll<HTMLButtonElement>('[data-type]');
+  const tagBtns = document.querySelectorAll<HTMLButtonElement>('[data-tag]');
+  const cards = document.querySelectorAll<HTMLElement>('.rcard');
+  const empty = document.getElementById('empty');
+  let type = 'all', tag = 'all';
+  function apply() {
+    typeBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.type === type)));
+    tagBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
+    let n = 0;
+    cards.forEach((c) => {
+      const okType = type === 'all' || (type === 'first' ? c.dataset.first === '1' : c.dataset.type === type);
+      const okTag = tag === 'all' || (c.dataset.tags ?? '').split(' ').includes(tag);
+      c.hidden = !(okType && okTag);
+      if (!c.hidden) n++;
     });
-    secs.forEach((s) => { s.hidden = !s.querySelector('.pub-item:not([hidden])'); });
-    yearLinks.forEach((a) => { a.style.display = document.querySelector(`.year-sec[data-year="${a.dataset.year}"]:not([hidden])`) ? '' : 'none'; });
-    try { history.replaceState(null, '', f === 'all' ? location.pathname : `?filter=${f}`); } catch {}
+    empty?.classList.toggle('show', n === 0);
+    try {
+      const q = new URLSearchParams();
+      if (type !== 'all') q.set('type', type);
+      if (tag !== 'all') q.set('tag', tag);
+      history.replaceState(null, '', q.toString() ? `?${q}` : location.pathname);
+    } catch {}
   }
-  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')));
-  const init = new URLSearchParams(location.search).get('filter');
-  if (init && [...buttons].some((b) => b.dataset.filter === init)) apply(init);
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) yearLinks.forEach((a) => a.classList.toggle('is-active', a.dataset.year === (e.target as HTMLElement).dataset.year));
-    });
-  }, { rootMargin: '-10% 0px -80% 0px' });
-  secs.forEach((s) => obs.observe(s));
+  typeBtns.forEach((b) => b.addEventListener('click', () => { type = b.dataset.type ?? 'all'; apply(); }));
+  tagBtns.forEach((b) => b.addEventListener('click', () => { tag = b.dataset.tag ?? 'all'; apply(); }));
+  const q = new URLSearchParams(location.search);
+  type = q.get('type') ?? 'all'; tag = q.get('tag') ?? 'all';
+  if (type !== 'all' || tag !== 'all') apply();
 </script>

@@ -16,6 +16,7 @@ award: "Best Full Paper Award"
 teaser: "/images/publications/debsim.webp"
 teaserAlt: "The DEBSIM interface with three friction points: (A) topic selection and stance, (B) argument formation with editable Toulmin claim cards, (C) keyword selection and evidence search with source verification, (D) auto-generated speech outline, and (E) counterargument simulation chat"
 pdf: "/papers/2026-debsim.pdf"
+tags: [hai, edu]
 areas: [Argumentation tutoring, Intelligent tutoring systems, Adaptive scaffolding, Assistance dilemma, Learning transfer, Productive friction, LLM-based pedagogical agents]
 selected: true
 order: 2

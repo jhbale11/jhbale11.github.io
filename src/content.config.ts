@@ -34,6 +34,7 @@ const publications = defineCollection({
     teaser: z.string().optional(),
     teaserAlt: z.string().optional(),
     areas: z.array(z.string()).default([]),
+    tags: z.array(z.enum(['hai','legal','health','edu','creative','agents','vis'])).default([]),
     selected: z.boolean().default(false),
     order: z.number().default(0),
     lang: z.enum(['en', 'ko']).default('en'),

@@ -16,6 +16,7 @@ format: "Extended Abstract"
 doi: "https://doi.org/10.1145/3772363.3798494"
 url: "https://doi.org/10.1145/3772363.3798494"
 pdf: "https://dl.acm.org/doi/pdf/10.1145/3772363.3798494"
+tags: [hai]
 areas: [Machine Unlearning, Interaction Design, Data Governance]
 selected: false
 order: 2

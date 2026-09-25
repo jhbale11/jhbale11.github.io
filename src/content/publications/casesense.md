@@ -18,6 +18,7 @@ doi: "https://doi.org/10.1145/3830398.3830479"
 url: "https://doi.org/10.1145/3830398.3830479"
 teaser: "/images/publications/casesense.webp"
 teaserAlt: "CaseSense interface: exploration panel with natural-language search and axis weighting, a tri-axial graph view of legal cases, and a case info panel with structured extractions"
+tags: [hai, legal, vis]
 areas: [Human-AI Interaction, Legal Tech, Visualization]
 selected: true
 order: 1

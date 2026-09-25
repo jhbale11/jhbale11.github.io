@@ -17,6 +17,7 @@ doi: "https://doi.org/10.1145/3785651.3831499"
 url: "https://doi.org/10.1145/3785651.3831499"
 teaser: "/images/publications/clinic-kitchen.webp"
 teaserAlt: "A constraint RAG chatbot bridging the clinical lab layer and the patient's living room layer, with four study phases from formative interviews to stakeholder debriefs"
+tags: [hai, health]
 areas: [Health Informatics, CSCW, Retrieval-Augmented Generation]
 selected: true
 order: 5

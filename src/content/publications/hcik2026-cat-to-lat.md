@@ -15,6 +15,7 @@ pages: "41–49"
 pdf: "/papers/2026-hcik-cat-to-lat.pdf"
 teaser: "/images/publications/cat-to-lat.webp"
 teaserAlt: "The LAT tool prototype: (A) chunk-based navigation, (B) sync-highlighting and alignment between source and translation, (C) context-aware AI suggestions with confidence, and (D) chunk re-translation"
+tags: [hai, creative]
 areas: [LLM Translation, Machine Translation Post-Editing, Computer-Aided Translation, Co-design Research, LLM-Assisted Translation]
 selected: false
 order: 1

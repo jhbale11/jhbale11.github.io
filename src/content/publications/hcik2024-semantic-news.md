@@ -13,6 +13,7 @@ venueShort: "HCI Korea 2024"
 category: domestic
 format: "Domestic Conference Paper"
 pages: "91–97"
+tags: [hai, vis]
 areas: [News Interfaces, Semantic Analysis, Information Design]
 selected: false
 order: 1

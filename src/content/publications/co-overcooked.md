@@ -18,6 +18,7 @@ award: "Student Travel Award"
 url: "https://escholarship.org/uc/item/39n1g8g6"
 teaser: "/images/publications/co-overcooked.webp"
 teaserAlt: "Co-Overcooked task environment: sequential soup preparation workflow, pre-game planning chat, and the main game grid where four players coordinate in real time"
+tags: [hai, agents]
 areas: [Human-AI Teaming, Cognitive Science, Partner Modeling]
 selected: true
 order: 3

@@ -18,6 +18,7 @@ url: "https://doi.org/10.1145/3772363.3798470"
 pdf: "/papers/2026-nurses-vibe-coding.pdf"
 teaser: "/images/publications/nurses-vibe-coding.webp"
 teaserAlt: "Overview of the 110-minute participatory design workshop with five nurses: a pre-session, three phases (initial exploration, discovery and selection, vibe coding) and a post-session"
+tags: [hai, health]
 areas: [Participatory Design, Vibe Coding, Real-Time Prototyping, User Engagement, Co-Design]
 selected: true
 order: 6

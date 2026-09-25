@@ -22,6 +22,7 @@ format: "Journal Article"
 status: "In press"
 doi: "https://doi.org/10.2196/96501"
 url: "https://doi.org/10.2196/96501"
+tags: [health, agents]
 areas: [Health Informatics, Retrieval-Augmented Generation, Randomized Controlled Trial]
 selected: false
 order: 1

@@ -4,7 +4,7 @@ import Icons from '../components/Icons.astro';
 import { site, news } from '../data/site';
 import { honors } from '../data/cv';
 import { getPubs } from '../lib/pubs';
-import { publisherLabel } from '../lib/links';
+import PubCard from '../components/PubCard.astro';
 
 const pubs = await getPubs();
 const selected = pubs.filter((p) => p.data.selected);
@@ -55,39 +55,13 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
     </div>
   </section>
 
-  <section class="wrap section">
-    <p class="section-title"><span><span class="emoji">📌</span>Selected publications</span><a href="/publications">View all {pubs.length} →</a></p>
-    <div class="scroller-shell">
-      <button class="scroll-btn l" type="button" aria-label="Scroll left" data-dir="-1">←</button>
-      <div class="scroller" data-scroller>
-        <div class="scroller-inner">
-          {selected.map((p) => {
-            const d = p.data;
-            const publisher = d.doi ?? (d.url && d.url !== d.arxiv ? d.url : undefined);
-            return (
-              <div class="pcard">
-                <a class="pcard-img" href={`/publications/${p.id}`} aria-hidden="true" tabindex="-1">
-                  {d.teaser ? <img src={d.teaser} alt="" loading="lazy" /> : <span class="ph">📄</span>}
-                </a>
-                <div class="pcard-body">
-                  <div class="pcard-head">
-                    <p class="pcard-title"><a href={`/publications/${p.id}`}>{d.shortTitle ?? d.title}</a></p>
-                    <span class="venue-chip">{d.venueShort.replace(/ (20)(\d\d)/, " '$2")}</span>
-                  </div>
-                  <p class="pcard-desc">{d.blurb}</p>
-                  {d.award && <p class="pcard-award">🏆 {d.award}</p>}
-                  <p class="pcard-meta">
-                    <a href={`/publications/${p.id}`}><Icons name="page" />Details</a>
-                    {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />PDF</a>}
-                    {publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)}</a>}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <button class="scroll-btn r" type="button" aria-label="Scroll right" data-dir="1">→</button>
+  <section class="wrap section" id="research">
+    <h2 class="h2-bar">Research Highlights ✨<a class="side" href="/publications">view all {pubs.length} →</a></h2>
+    <p class="lead">I build <b>interactive systems that externalize expert tacit knowledge</b>. My work sits at the intersection of
+      <span class="em">human-AI interaction</span> and <span class="em">LLM systems</span>, in domains such as law, medicine, education and writing.</p>
+    <p class="pub-note">* denotes equal contribution</p>
+    <div class="rgrid">
+      {selected.map((p) => <PubCard pub={p} />)}
     </div>
   </section>
 
@@ -123,18 +97,3 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
     </div>
   </section>
 </Base>
-
-<script>
-  const shell = document.querySelector<HTMLElement>('.scroller-shell');
-  const sc = shell?.querySelector<HTMLElement>('[data-scroller]');
-  const btns = shell?.querySelectorAll<HTMLButtonElement>('.scroll-btn') ?? [];
-  function update() {
-    if (!sc) return;
-    const max = sc.scrollWidth - sc.clientWidth - 1;
-    btns.forEach((b) => { b.disabled = b.dataset.dir === '-1' ? sc.scrollLeft <= 0 : sc.scrollLeft >= max; });
-  }
-  btns.forEach((b) => b.addEventListener('click', () => sc?.scrollBy({ left: Number(b.dataset.dir) * 460, behavior: 'smooth' })));
-  sc?.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-</script>

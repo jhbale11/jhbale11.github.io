@@ -16,6 +16,7 @@ format: "Preprint"
 arxiv: "https://arxiv.org/abs/2506.14199"
 url: "https://arxiv.org/abs/2506.14199"
 pdf: "/papers/2025-mas-liteval.pdf"
+tags: [agents, creative]
 areas: [LLM Evaluation, Literary Translation, Multi-Agent Systems]
 selected: false
 order: 1

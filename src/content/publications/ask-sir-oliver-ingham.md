@@ -15,6 +15,7 @@ category: co-author
 format: "Extended Abstract"
 doi: "https://doi.org/10.1145/3706599.3719728"
 url: "https://doi.org/10.1145/3706599.3719728"
+tags: [edu, agents]
 areas: [Education, LLM Simulation, History Learning]
 selected: false
 order: 2

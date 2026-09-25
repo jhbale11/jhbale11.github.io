@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icons from './Icons.astro';
+import { groupKey } from '../lib/pubs';
+import { publisherLabel } from '../lib/links';
+
+interface Props { pub: CollectionEntry<'publications'> }
+const { pub } = Astro.props;
+const d = pub.data;
+const href = `/publications/${pub.id}`;
+const type = groupKey(pub);
+const publisher = d.doi ?? (d.url && d.url !== d.arxiv ? d.url : undefined);
+const venue = d.venueShort;
+const tagLabel: Record<string, string> = { hai: 'hai', legal: 'legal', health: 'health', edu: 'edu', creative: 'creative', agents: 'agents', vis: 'vis' };
+---
+<article class="rcard" data-first={d.category === 'first-author' ? '1' : '0'} data-type={type} data-tags={d.tags.join(' ')} data-year={d.year}>
+  <a class="rcard-img" href={href} aria-label={d.title}>
+    {d.teaser ? <img src={d.teaser} alt="" loading="lazy" /> : <span class="rcard-ph"><span>{d.shortTitle ?? '📄'}</span></span>}
+  </a>
+  <div class="rcard-body">
+    <div>
+      <div class="rcard-row">
+        <span class="rcard-venue">{venue}</span>
+        <span class="rcard-tags">{d.tags.map((t) => <span class:list={['rtag', `t-${t}`]}>{tagLabel[t]}</span>)}</span>
+      </div>
+      <h3 class="rcard-title"><a href={href}>{d.award && <span class="award-ic" title={d.award}>🏆</span>}{d.title}</a></h3>
+      <p class="rcard-authors">
+        {d.authors.map((a, i) => (<><span class:list={{ me: a.me }}>{a.name}</span>{a.equal && <sup>*</sup>}{i < d.authors.length - 1 ? ', ' : ''}</>))}
+      </p>
+      {d.blurb && <p class="rcard-summary">{d.blurb}</p>}
+      {d.award && <span class="rcard-award">{d.award}</span>}
+    </div>
+    <div class="rcard-links">
+      {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />paper</a>}
+      {!d.pdf && publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />paper</a>}
+      {d.pdf && publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)?.toLowerCase()}</a>}
+      {d.arxiv && !d.pdf && <a href={d.arxiv} target="_blank" rel="noopener"><Icons name="arxiv" />arxiv</a>}
+      {d.conferenceUrl && <a href={d.conferenceUrl} target="_blank" rel="noopener"><Icons name="link" />conference</a>}
+      <a href={href}><Icons name="page" />details</a>
+    </div>
+  </div>
+</article>

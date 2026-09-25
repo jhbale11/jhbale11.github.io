@@ -14,6 +14,7 @@ venueShort: "HCI Korea 2025"
 category: domestic
 format: "Domestic Conference Paper"
 pages: "431–437"
+tags: [hai]
 areas: [Conversational Agents, Voice Interfaces, Korean Pragmatics]
 selected: false
 order: 2

@@ -17,6 +17,7 @@ url: "https://arxiv.org/abs/2503.00717"
 pdf: "/papers/2025-llmdr.pdf"
 teaser: "/images/publications/llmdr.webp"
 teaserAlt: "LLMDR pipeline: a learned multi-agent pathfinding model, LLM-based deadlock detection, and prioritized-planning resolution strategies"
+tags: [agents]
 areas: [Multi-Agent Pathfinding, LLM Reasoning, Planning]
 selected: false
 order: 2

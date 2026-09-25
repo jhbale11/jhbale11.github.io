@@ -17,6 +17,7 @@ doi: "https://doi.org/10.1145/3746059.3747752"
 url: "https://doi.org/10.1145/3746059.3747752"
 teaser: "/images/publications/legisflow.webp"
 teaserAlt: "LegisFlow interface for Korean statutory research with interactive amendment timelines and inter-statute relationship analysis"
+tags: [hai, legal, vis]
 areas: [Human-AI Interaction, Legal Tech, Temporal Interfaces]
 selected: true
 order: 1

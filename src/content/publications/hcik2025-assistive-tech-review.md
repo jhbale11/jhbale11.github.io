@@ -18,6 +18,7 @@ venueShort: "HCI Korea 2025"
 category: domestic
 format: "Domestic Conference Paper"
 pages: "1343–1349"
+tags: [edu]
 areas: [Accessibility, Assistive Technology, Education]
 selected: false
 order: 3

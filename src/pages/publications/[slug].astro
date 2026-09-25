@@ -38,7 +38,7 @@ const notes = [d.format, d.presentation, d.status].filter(Boolean).join(' · ');
     {hasEqual && <p class="small muted" style="font-size: 0.75rem; margin: 0.1rem 0 0"><sup>†</sup> equal contribution</p>}
     <p class="pub-venue">{d.venue}{d.pages ? `, pp. ${d.pages}` : ''}<br /><span class="note">{d.venueShort} · {notes}</span></p>
     {d.award && <p class="pub-award">🏆 {d.award}</p>}
-    <div class="detail-meta">
+    <div class="rcard-links" style="font-size: 0.78rem; margin-top: 1rem">
       {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />PDF</a>}
       {publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)}{d.doi ? ' (DOI)' : ''}</a>}
       {d.arxiv && <a href={d.arxiv} target="_blank" rel="noopener"><Icons name="arxiv" />arXiv</a>}
