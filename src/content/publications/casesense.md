@@ -20,6 +20,8 @@ areas: [Human-AI Interaction, Legal Tech, Visualization]
 selected: true
 order: 1
 abstractSource: overview
+conferenceUrl: "https://uist.acm.org/2026/"
+conferenceName: "UIST 2026"
 bibkey: kim2026casesense
 ---
 

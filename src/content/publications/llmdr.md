@@ -18,6 +18,7 @@ teaserAlt: "LLMDR pipeline: a learned multi-agent pathfinding model, LLM-based d
 areas: [Multi-Agent Pathfinding, LLM Reasoning, Planning]
 selected: false
 order: 2
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:u-x6o8ySG0sC"
 bibkey: seo2025llmdr
 bibtype: misc
 ---

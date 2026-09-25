@@ -48,7 +48,7 @@ const selected = pubs.filter((p) => p.data.selected);
     <div class="sec-head"><h2>📌 News</h2></div>
     <ul class="news">
       {news.map((n) => (
-        <li><span class="d">{n.date}</span><span>{n.href ? <a href={n.href} set:html={n.text} /> : <span set:html={n.text} />}</span></li>
+        <li class:list={{ upcoming: n.upcoming }}><span class="d">{n.date}</span><span>{n.href ? <a href={n.href} set:html={n.text} /> : <span set:html={n.text} />}{n.upcoming && <span class="soon">upcoming</span>}</span></li>
       ))}
     </ul>
   </section>

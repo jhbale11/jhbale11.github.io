@@ -21,9 +21,9 @@ export const education = [
 ];
 
 export const honors = [
-  { title: 'Yulchon AI Young Researcher Scholarship (AI+X)', org: 'Nongshim Yulchon Foundation & SNU AI Institute', when: '2026' },
-  { title: 'Best Full Paper Award', org: 'ACM Interactive Surfaces and Spaces (ITS) — DEBSIM', when: '2026', href: '/publications/debsim' },
-  { title: 'Student Travel Award', org: 'Cognitive Science Society (CogSci) — Co-Overcooked', when: '2026', href: '/publications/co-overcooked' },
+  { title: 'Yulchon AI Young Researcher Scholarship (AI+X)', org: 'Nongshim Yulchon Foundation & SNU AI Institute', when: 'Sep 2026' },
+  { title: 'Best Full Paper Award', org: 'International Conference on Intelligent Tutoring Systems (ITS 2026) — DEBSIM', when: 'Jun 2026', href: '/publications/debsim' },
+  { title: 'Student Travel Award', org: 'Cognitive Science Society (CogSci 2026) — Co-Overcooked', when: 'Jul 2026', href: '/publications/co-overcooked' },
   { title: '3rd Place, Big-Data Financial Investment Model (FIM) Showcase', org: 'SNU College of Engineering & QUANTIT', when: 'Aug 2023' },
   { title: 'Excellence Award, SME Closure Prediction Challenge', org: 'NICE D&B', when: 'Dec 2022' },
 ];

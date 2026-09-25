@@ -17,6 +17,7 @@ areas: [LLM Translation, Machine Translation Post-Editing, Computer-Aided Transl
 selected: false
 order: 1
 lang: ko
+url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745756"
 bibkey: kim2026catlat
 ---
 

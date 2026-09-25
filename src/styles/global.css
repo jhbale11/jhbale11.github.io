@@ -107,12 +107,14 @@ sup { font-size: 0.7em; line-height: 0; }
 
 /* News */
 .news { list-style: none; padding: 0; margin: 0; }
-.news li { display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.93rem; }
+.news li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.93rem; }
 .news li:last-child { border-bottom: 0; }
 .news .d { color: var(--navy-2); font-weight: 700; font-size: 0.85rem; padding-top: 0.1rem; }
 .news a { color: var(--text); }
 .news a:hover { color: var(--link); }
 .news b { font-weight: 700; }
+.news .soon { display: inline-block; margin-left: 0.4rem; padding: 0 0.4rem; border-radius: 4px; background: var(--gold-soft); color: var(--gold); font-size: 0.72rem; font-weight: 700; vertical-align: 1px; }
+.news .d { white-space: nowrap; }
 
 /* Publications */
 .legend { font-size: 0.83rem; color: var(--text-3); margin: 0 0 0.75rem; }

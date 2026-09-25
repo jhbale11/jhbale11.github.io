@@ -17,6 +17,8 @@ selected: false
 order: 2
 lang: ko
 abstractSource: overview
+url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12131514"
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:qjMakFHDy7sC"
 bibkey: shin2025discoursemarkers
 ---
 

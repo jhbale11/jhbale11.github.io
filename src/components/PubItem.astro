@@ -25,6 +25,6 @@ const hasThumb = showThumb && !!d.teaser;
       <span>{d.format}{d.presentation ? ` · ${d.presentation}` : ''}</span>
       {d.status && <span class="stat">· {d.status}</span>}
     </div>
-    <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} />
+    <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} scholar={d.scholar} conferenceUrl={d.conferenceUrl} />
   </div>
 </li>

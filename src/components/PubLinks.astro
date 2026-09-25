@@ -1,13 +1,16 @@
 ---
 import Icons from './Icons.astro';
-interface Props { slug: string; doi?: string; url?: string; pdf?: string; arxiv?: string; showPage?: boolean }
-const { slug, doi, url, pdf, arxiv, showPage = true } = Astro.props;
-const external = url && url !== doi && url !== arxiv ? url : undefined;
+import { publisherLabel } from '../lib/links';
+interface Props { slug: string; doi?: string; url?: string; pdf?: string; arxiv?: string; scholar?: string; conferenceUrl?: string; showPage?: boolean }
+const { slug, doi, url, pdf, arxiv, scholar, conferenceUrl, showPage = true } = Astro.props;
+const publisher = doi ?? (url && url !== arxiv ? url : undefined);
+const label = publisherLabel(publisher);
 ---
 <div class="links">
   {showPage && <a class="pri" href={`/publications/${slug}`}><Icons name="page" /> Paper page</a>}
   {pdf && <a href={pdf} target="_blank" rel="noopener"><Icons name="pdf" /> PDF</a>}
-  {doi && <a href={doi} target="_blank" rel="noopener"><Icons name="doi" /> DOI</a>}
+  {publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" /> {label}</a>}
   {arxiv && <a href={arxiv} target="_blank" rel="noopener"><Icons name="arxiv" /> arXiv</a>}
-  {external && <a href={external} target="_blank" rel="noopener"><Icons name="link" /> Link</a>}
+  {conferenceUrl && <a href={conferenceUrl} target="_blank" rel="noopener"><Icons name="link" /> Conference</a>}
+  {scholar && <a href={scholar} target="_blank" rel="noopener"><Icons name="scholar" /> Scholar</a>}
 </div>

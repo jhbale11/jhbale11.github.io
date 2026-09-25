@@ -31,13 +31,15 @@ export const site = {
   ],
 };
 
-export const news: { date: string; text: string; href?: string }[] = [
-  { date: '2026', text: 'Two papers accepted at <b>UIST 2026</b>: CaseSense (full paper) and ToneCanvas (poster).', href: '/publications/casesense' },
-  { date: '2026', text: 'DEBSIM received the <b>Best Full Paper Award</b> at ACM ITS 2026.', href: '/publications/debsim' },
-  { date: '2026', text: 'Co-Overcooked accepted at <b>CogSci 2026</b> as an oral presentation, with a Student Travel Award.', href: '/publications/co-overcooked' },
-  { date: '2026', text: 'Awarded the <b>Yulchon AI Young Researcher Scholarship</b> (AI+X) from the Nongshim Yulchon Foundation and SNU AI Institute.' },
-  { date: '2026', text: 'Poster on a constraint RAG chatbot for dialysis care accepted to the <b>CSCW 2026</b> Companion.', href: '/publications/clinic-and-kitchen' },
-  { date: '2026', text: 'Two extended abstracts at <b>CHI 2026</b>: nurses meet vibe-coding, and rethinking deletion in learning-based systems.', href: '/publications/nurses-vibe-coding' },
-  { date: '2026', text: 'RCT on a personalized RAG chatbot for chronic kidney disease patients accepted at the <b>Interactive Journal of Medical Research</b>.', href: '/publications/ckd-rag-chatbot-rct' },
-  { date: '2025', text: 'LegisFlow published at <b>UIST 2025</b>.', href: '/publications/legisflow' },
+export const news: { date: string; text: string; href?: string; upcoming?: boolean }[] = [
+  { date: 'Nov 2026', upcoming: true, text: 'CaseSense (full paper) and ToneCanvas (poster) will be presented at <b>UIST 2026</b>.', href: '/publications/casesense' },
+  { date: 'Oct 2026', upcoming: true, text: 'Poster on a constraint RAG chatbot for dialysis care will be presented at <b>CSCW 2026</b> (Companion).', href: '/publications/clinic-and-kitchen' },
+  { date: 'Sep 2026', text: 'Awarded the <b>Yulchon AI Young Researcher Scholarship</b> (AI+X) from the Nongshim Yulchon Foundation and SNU AI Institute.' },
+  { date: 'Aug 2026', text: 'RCT on a personalized RAG chatbot for chronic kidney disease patients accepted at the <b>Interactive Journal of Medical Research</b>.', href: '/publications/ckd-rag-chatbot-rct' },
+  { date: 'Jul 2026', text: 'Presented Co-Overcooked (oral) at <b>CogSci 2026</b> in Rio de Janeiro, with a <b>Student Travel Award</b>.', href: '/publications/co-overcooked' },
+  { date: 'Jun 2026', text: 'Presented DEBSIM at <b>ITS 2026</b> in Pafos, Cyprus. It received the <b>Best Full Paper Award</b>.', href: '/publications/debsim' },
+  { date: 'Apr 2026', text: 'Presented two extended abstracts at <b>CHI 2026</b> in Barcelona: nurses meet vibe-coding, and rethinking deletion in learning-based systems.', href: '/publications/nurses-vibe-coding' },
+  { date: 'Feb 2026', text: 'Two extended abstracts accepted to <b>CHI 2026</b>.', href: '/publications/nurses-vibe-coding' },
+  { date: 'Oct 2025', text: 'Presented LegisFlow at <b>UIST 2025</b> in Busan.', href: '/publications/legisflow' },
+  { date: 'Aug 2025', text: 'LegisFlow accepted to <b>UIST 2025</b> as a full paper.', href: '/publications/legisflow' },
 ];

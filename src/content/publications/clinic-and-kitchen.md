@@ -19,6 +19,8 @@ areas: [Health Informatics, CSCW, Retrieval-Augmented Generation]
 selected: true
 order: 5
 abstractSource: overview
+conferenceUrl: "https://cscw.acm.org/2026/"
+conferenceName: "CSCW 2026"
 bibkey: kim2026clinickitchen
 ---
 

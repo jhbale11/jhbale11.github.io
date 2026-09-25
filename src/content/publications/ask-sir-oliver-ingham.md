@@ -16,6 +16,9 @@ url: "https://doi.org/10.1145/3706599.3719728"
 areas: [Education, LLM Simulation, History Learning]
 selected: false
 order: 2
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:d1gkVwhDpl0C"
+conferenceUrl: "https://chi2025.acm.org/"
+conferenceName: "CHI 2025, Yokohama"
 bibkey: park2025oliveringham
 ---
 

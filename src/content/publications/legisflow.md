@@ -18,6 +18,9 @@ teaserAlt: "LegisFlow interface for Korean statutory research with interactive a
 areas: [Human-AI Interaction, Legal Tech, Temporal Interfaces]
 selected: true
 order: 1
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:IjCSPb-OGe4C"
+conferenceUrl: "https://uist.acm.org/2025/"
+conferenceName: "UIST 2025, Busan"
 bibkey: kim2025legisflow
 ---
 

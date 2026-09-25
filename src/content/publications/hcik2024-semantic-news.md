@@ -16,6 +16,8 @@ selected: false
 order: 1
 lang: ko
 abstractSource: overview
+url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11714626"
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:9yKSN-GCB0IC"
 bibkey: lee2024semanticnews
 ---
 

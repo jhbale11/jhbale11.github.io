@@ -6,8 +6,8 @@ authors:
   - { name: Hyungwoo Song }
   - { name: Bongwon Suh }
 year: 2026
-venue: "Proceedings of the ACM International Conference on Interactive Surfaces and Spaces (ISS '26)"
-venueShort: "ACM ITS 2026"
+venue: "Proceedings of the International Conference on Intelligent Tutoring Systems (ITS 2026), Lecture Notes in Computer Science, Springer"
+venueShort: "ITS 2026"
 category: first-author
 format: "Full Paper"
 award: "Best Full Paper Award"
@@ -17,6 +17,8 @@ pdf: "/papers/2026-debsim.pdf"
 areas: [Argumentation tutoring, Intelligent tutoring systems, Adaptive scaffolding, Assistance dilemma, Learning transfer, Productive friction, LLM-based pedagogical agents]
 selected: true
 order: 2
+conferenceUrl: "https://iis-international.org/its2026/"
+conferenceName: "ITS 2026, Pafos, Cyprus"
 bibkey: kim2026debsim
 ---
 

@@ -19,6 +19,9 @@ teaserAlt: "Overview of the 110-minute participatory design workshop with five n
 areas: [Participatory Design, Vibe Coding, Real-Time Prototyping, User Engagement, Co-Design]
 selected: true
 order: 6
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:zYLM7Y9cAGgC"
+conferenceUrl: "https://chi2026.acm.org/"
+conferenceName: "CHI 2026, Barcelona"
 bibkey: kim2026nurses
 ---
 

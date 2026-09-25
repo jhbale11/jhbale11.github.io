@@ -20,6 +20,9 @@ areas: [Human-AI Teaming, Cognitive Science, Partner Modeling]
 selected: true
 order: 3
 abstractSource: overview
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:YsMSGLbcyi4C"
+conferenceUrl: "https://cognitivesciencesociety.org/cogsci-2026/"
+conferenceName: "CogSci 2026, Rio de Janeiro"
 bibkey: kim2026coovercooked
 ---
 

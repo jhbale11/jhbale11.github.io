@@ -17,6 +17,9 @@ pdf: "https://dl.acm.org/doi/pdf/10.1145/3772363.3798494"
 areas: [Machine Unlearning, Interaction Design, Data Governance]
 selected: false
 order: 2
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:Tyk-4Ss8FVUC"
+conferenceUrl: "https://chi2026.acm.org/"
+conferenceName: "CHI 2026, Barcelona"
 bibkey: ryu2026deletion
 ---
 

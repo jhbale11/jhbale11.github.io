@@ -18,6 +18,8 @@ areas: [Human-AI Interaction, Creative Writing, Narrative Consistency]
 selected: true
 order: 4
 abstractSource: overview
+conferenceUrl: "https://uist.acm.org/2026/"
+conferenceName: "UIST 2026"
 bibkey: kim2026tonecanvas
 ---
 

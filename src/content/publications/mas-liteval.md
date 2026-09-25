@@ -17,6 +17,7 @@ pdf: "/papers/2025-mas-liteval.pdf"
 areas: [LLM Evaluation, Literary Translation, Multi-Agent Systems]
 selected: false
 order: 1
+scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:UeHWp8X0CEIC"
 bibkey: kim2025masliteval
 bibtype: misc
 ---
