@@ -36,7 +36,6 @@ const tags = [
       <button type="button" data-tag="all" aria-pressed="true">all</button>
       {tags.map((t) => <button type="button" data-tag={t.key} aria-pressed="false"><i class="dot" style={`background: var(--t-${t.key})`}></i>{t.label}</button>)}
     </div>
-    <p class="pub-note">* denotes equal contribution · 🏆 award-winning paper</p>
 
     <div class="pub-layout">
       <aside class="year-nav" aria-label="Jump to year">

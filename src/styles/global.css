@@ -233,6 +233,7 @@ a:hover .aff { filter: none; }
 .h2-bar .side { float: right; font-size: 0.82rem; font-weight: 400; color: var(--text-3); margin-top: 0.4rem; }
 .h2-bar .side:hover { color: var(--blue); }
 .lead { font-size: 0.92rem; font-weight: 350; color: var(--text-2); max-width: 64ch; margin: 0 0 0.75rem; }
+.lead-line { max-width: none; margin-bottom: 0.25rem; }
 .lead b { font-weight: 500; color: var(--text); }
 .lead .em { font-weight: 500; color: var(--blue); }
 .pub-note { font-size: 0.72rem; font-style: italic; color: var(--text-3); margin: 0 0 0.75rem; }
