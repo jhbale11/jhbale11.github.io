@@ -1,0 +1,12 @@
+---
+interface Props { award?: string; status?: string; presentation?: string; format?: string; showFormat?: boolean }
+const { award, status, presentation, format, showFormat = true } = Astro.props;
+---
+{(award || status || presentation || (showFormat && format)) && (
+  <div class="badges">
+    {award && <span class="badge award">🏆 {award}</span>}
+    {presentation && <span class="badge">{presentation}</span>}
+    {status && <span class="badge status">{status}</span>}
+    {showFormat && format && <span class="badge">{format}</span>}
+  </div>
+)}

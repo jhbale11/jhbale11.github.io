@@ -1,0 +1,12 @@
+---
+interface Props { slug: string; doi?: string; url?: string; pdf?: string; arxiv?: string; showPage?: boolean }
+const { slug, doi, url, pdf, arxiv, showPage = true } = Astro.props;
+const external = url && url !== doi ? url : undefined;
+---
+<div class="pub-links">
+  {showPage && <a class="strong" href={`/publications/${slug}`}>Paper page</a>}
+  {doi && <a href={doi} target="_blank" rel="noopener">DOI</a>}
+  {arxiv && <a href={arxiv} target="_blank" rel="noopener">arXiv</a>}
+  {pdf && <a href={pdf} target="_blank" rel="noopener">PDF</a>}
+  {external && !arxiv && <a href={external} target="_blank" rel="noopener">Link</a>}
+</div>

@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Authors from './Authors.astro';
+import Badges from './Badges.astro';
+import PubLinks from './PubLinks.astro';
+
+interface Props { pub: CollectionEntry<'publications'> }
+const { pub } = Astro.props;
+const d = pub.data;
+const href = `/publications/${pub.id}`;
+---
+<li class="pub card" data-category={d.category} data-year={d.year}>
+  <a href={href} class:list={['pub-thumb', { 'placeholder-bg': !d.teaser }]} aria-hidden="true" tabindex="-1">
+    {d.teaser ? <img src={d.teaser} alt="" loading="lazy" /> : <span class="placeholder">{d.venueShort}</span>}
+  </a>
+  <div class="pub-body">
+    <div class="pub-title"><a href={href}>{d.title}</a></div>
+    <Authors authors={d.authors} />
+    <div class="pub-venue"><span class="short">{d.venueShort}</span> · {d.venue}{d.pages ? `, ${d.pages}` : ''}</div>
+    <Badges award={d.award} status={d.status} presentation={d.presentation} format={d.format} />
+    <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} />
+  </div>
+</li>

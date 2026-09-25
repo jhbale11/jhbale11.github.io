@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import PubItem from '../../components/PubItem.astro';
+import { getPubs, groupByYear, categoryLabel } from '../../lib/pubs';
+
+const pubs = await getPubs();
+const groups = groupByYear(pubs);
+const cats = Object.entries(categoryLabel) as [keyof typeof categoryLabel, string][];
+const count = (c: string) => pubs.filter((p) => p.data.category === c).length;
+---
+<Base title="Publications" description="Publications by Junghwan Kim: HCI, LLM-augmented interfaces for domain experts, and human-AI collaboration.">
+  <section class="section" style="padding-top: 2.5rem">
+    <div class="container">
+      <div class="eyebrow">Research output</div>
+      <h1 style="margin: 0.3rem 0 0.6rem">Publications</h1>
+      <p class="muted" style="max-width: 60ch">
+        Peer-reviewed papers, preprints and domestic (HCI Korea) publications. Each entry has its own page with an
+        abstract, links and BibTeX.
+      </p>
+      <p class="legend"><sup>†</sup> equal contribution / co-first author · 🏆 award-winning paper</p>
+
+      <div class="filters" role="group" aria-label="Filter publications">
+        <button type="button" data-filter="all" aria-pressed="true">All ({pubs.length})</button>
+        {cats.map(([key, label]) => (
+          <button type="button" data-filter={key} aria-pressed="false">{label} ({count(key)})</button>
+        ))}
+      </div>
+
+      {groups.map((g) => (
+        <div class="year-group" data-year={g.year}>
+          <div class="year-head"><h2>{g.year}</h2></div>
+          <ul class="pub-list">
+            {g.pubs.map((p) => <PubItem pub={p} />)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const items = document.querySelectorAll<HTMLElement>('.pub');
+  const groups = document.querySelectorAll<HTMLElement>('.year-group');
+
+  function apply(filter: string) {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+    items.forEach((el) => {
+      el.hidden = filter !== 'all' && el.dataset.category !== filter;
+    });
+    groups.forEach((g) => {
+      g.hidden = !g.querySelector('.pub:not([hidden])');
+    });
+    try {
+      if (filter === 'all') history.replaceState(null, '', location.pathname);
+      else history.replaceState(null, '', `${location.pathname}?filter=${filter}`);
+    } catch {}
+  }
+
+  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')));
+  const initial = new URLSearchParams(location.search).get('filter');
+  if (initial && [...buttons].some((b) => b.dataset.filter === initial)) apply(initial);
+</script>

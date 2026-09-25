@@ -1,0 +1,121 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Authors from '../../components/Authors.astro';
+import Badges from '../../components/Badges.astro';
+import { getPubs, bibtex, categoryLabel } from '../../lib/pubs';
+
+export async function getStaticPaths() {
+  const pubs = await getPubs();
+  return pubs.map((pub, i) => ({
+    params: { slug: pub.id },
+    props: { pub, prev: pubs[i - 1] ?? null, next: pubs[i + 1] ?? null },
+  }));
+}
+
+const { pub, prev, next } = Astro.props;
+const d = pub.data;
+const { Content } = await render(pub);
+const bib = bibtex(pub);
+const description = `${d.title} (${d.venueShort}). ${d.authors.map((a) => a.name).join(', ')}.`;
+const hasEqual = d.authors.some((a) => a.equal);
+---
+<Base title={d.title} description={description} image={d.teaser ?? '/images/profile.jpg'} type="article">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ScholarlyArticle',
+      headline: d.title,
+      author: d.authors.map((a) => ({ '@type': 'Person', name: a.name })),
+      datePublished: String(d.year),
+      isPartOf: { '@type': 'PublicationEvent', name: d.venue },
+      ...(d.doi ? { sameAs: d.doi } : {}),
+      ...(d.teaser ? { image: new URL(d.teaser, Astro.site).toString() } : {}),
+    })} />
+  </Fragment>
+
+  <section class="paper-hero">
+    <div class="container">
+      <div class="crumbs"><a href="/publications">Publications</a> / {d.year} / {d.venueShort}</div>
+      <h1>{d.title}</h1>
+      <Authors authors={d.authors} />
+      {hasEqual && <div class="small" style="color: var(--hero-muted); margin-top: 0.2rem"><sup>†</sup> equal contribution</div>}
+      <div class="pub-venue" style="margin-top: 0.7rem"><span class="short">{d.venueShort}</span> · {d.venue}{d.pages ? `, pp. ${d.pages}` : ''}</div>
+      <Badges award={d.award} status={d.status} presentation={d.presentation} format={d.format} />
+    </div>
+  </section>
+
+  <div class="container paper-layout">
+    <article>
+      {d.teaser && (
+        <figure class="paper-figure">
+          <img src={d.teaser} alt={d.teaserAlt ?? d.title} width="800" />
+          {d.teaserAlt && <figcaption>{d.teaserAlt}</figcaption>}
+        </figure>
+      )}
+      <div class="prose">
+        <h2>{d.abstractSource === 'official' ? 'Abstract' : 'Overview'}</h2>
+        <Content />
+      </div>
+      {d.abstractSource === 'overview' && (
+        <p class="note">
+          The official abstract will be posted once the paper is published. This overview is a short description of the work.
+        </p>
+      )}
+
+      <nav class="pager" aria-label="Adjacent publications">
+        {prev ? <a href={`/publications/${prev.id}`}><span>← Newer</span><b>{prev.data.title}</b></a> : <span />}
+        {next ? <a href={`/publications/${next.id}`} style="text-align: right"><span>Older →</span><b>{next.data.title}</b></a> : <span />}
+      </nav>
+    </article>
+
+    <aside class="side">
+      <div class="card">
+        <h3>Links</h3>
+        <div class="link-stack">
+          {d.doi && <a class="strong" href={d.doi} target="_blank" rel="noopener">Publisher (DOI) <span>↗</span></a>}
+          {d.arxiv && <a class:list={[{ strong: !d.doi }]} href={d.arxiv} target="_blank" rel="noopener">arXiv <span>↗</span></a>}
+          {d.pdf && <a href={d.pdf} target="_blank" rel="noopener">PDF <span>↓</span></a>}
+          {d.url && d.url !== d.doi && d.url !== d.arxiv && <a href={d.url} target="_blank" rel="noopener">Open access <span>↗</span></a>}
+          {!d.doi && !d.arxiv && !d.pdf && !d.url && <span class="muted small">Links will be added once the paper is published.</span>}
+        </div>
+      </div>
+      <div class="card">
+        <h3>Details</h3>
+        <dl>
+          <dt>Venue</dt><dd>{d.venueShort}</dd>
+          <dt>Year</dt><dd>{d.year}</dd>
+          <dt>Type</dt><dd>{d.format}</dd>
+          <dt>Role</dt><dd>{categoryLabel[d.category].replace(/s$/, '').replace(' (HCI Korea)', '')}</dd>
+          {d.award && <><dt>Award</dt><dd>{d.award}</dd></>}
+        </dl>
+        {d.areas.length > 0 && (
+          <div class="tags" style="margin-top: 0.8rem">
+            {d.areas.map((a) => <span class="badge">{a}</span>)}
+          </div>
+        )}
+      </div>
+      <div class="card bib">
+        <div class="bib-head">
+          <h3>BibTeX</h3>
+          <button class="copy-btn" type="button" data-copy>Copy</button>
+        </div>
+        <pre><code>{bib}</code></pre>
+      </div>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-copy]');
+  const code = document.querySelector('.bib code');
+  btn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(code?.textContent ?? '');
+      btn.textContent = 'Copied';
+      setTimeout(() => (btn.textContent = 'Copy'), 1500);
+    } catch {
+      btn.textContent = 'Select & copy';
+    }
+  });
+</script>
