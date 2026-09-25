@@ -2,7 +2,7 @@ export const education = [
   {
     school: 'Seoul National University',
     unit: 'Graduate School of Convergence Science & Technology',
-    degree: 'Ph.D. Candidate (Integrated M.S./Ph.D.), Interdisciplinary Program in Artificial Intelligence',
+    degree: 'Ph.D. Candidate (Integrated M.S./Ph.D.), Department of Intelligence and Information',
     period: 'Aug 2022 – Present',
     place: 'Seoul, Korea',
     notes: [
