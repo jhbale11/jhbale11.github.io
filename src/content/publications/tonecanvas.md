@@ -18,7 +18,7 @@ teaser: "/images/publications/tonecanvas.webp"
 teaserAlt: "ToneCanvas manuscript editor with watercolor tone overlays, a tone palette with sliders and live preview, and character layers with reusable tone chips"
 tags: [hai, creative]
 areas: [Human-AI Interaction, Creative Writing, Narrative Consistency]
-selected: false
+selected: true
 order: 4
 abstractSource: overview
 conferenceUrl: "https://uist.acm.org/2026/"

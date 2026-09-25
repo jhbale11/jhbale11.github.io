@@ -1,25 +1,38 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import Authors from './Authors.astro';
-import PubLinks from './PubLinks.astro';
+import Icons from './Icons.astro';
 import { groupKey } from '../lib/pubs';
+import { publisherLabel } from '../lib/links';
 
 interface Props { pub: CollectionEntry<'publications'> }
 const { pub } = Astro.props;
 const d = pub.data;
 const href = `/publications/${pub.id}`;
 const type = groupKey(pub);
-const dotClass = { papers: 'full', short: 'short', preprints: 'preprint', domestic: 'domestic' }[type];
+const publisher = d.doi ?? (d.url && d.url !== d.arxiv ? d.url : undefined);
 const notes = [d.format, d.presentation, d.status].filter(Boolean).join(' · ');
 ---
-<div class:list={['pub-item', { 'has-thumb': !!d.teaser }]} data-first={d.category === 'first-author' ? '1' : '0'} data-type={type} data-year={d.year}>
-  <span class:list={['dot', dotClass]} aria-hidden="true"></span>
-  <div>
-    {d.award && <p class="pub-award">🏆 {d.award}</p>}
-    <p class="pub-title"><a href={href}>{d.title}</a>{d.titleEn && <span class="en">{d.titleEn}</span>}</p>
-    <Authors authors={d.authors} />
-    <p class="pub-venue">{d.venueShort} <span class="note">· {notes}</span></p>
-    <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} scholar={d.scholar} conferenceUrl={d.conferenceUrl} />
+<article class:list={['pitem', { 'has-thumb': !!d.teaser }]} data-first={d.category === 'first-author' ? '1' : '0'} data-type={type} data-tags={d.tags.join(' ')} data-year={d.year}>
+  <div class="pitem-body">
+    <div class="rcard-row">
+      <span class="rcard-venue">{d.venueShort} <span class="pitem-notes">· {notes}</span></span>
+      <span class="rcard-tags">{d.tags.map((t) => <span class:list={['rtag', `t-${t}`]}>{t}</span>)}</span>
+    </div>
+    <h3 class="rcard-title"><a href={href}>{d.award && <span class="award-ic" title={d.award}>🏆</span>}{d.title}</a>{d.titleEn && <span class="pitem-en">{d.titleEn}</span>}</h3>
+    <p class="rcard-authors">
+      {d.authors.map((a, i) => (<><span class:list={{ me: a.me }}>{a.name}</span>{a.equal && <sup>*</sup>}{i < d.authors.length - 1 ? ', ' : ''}</>))}
+    </p>
+    {d.blurb && <p class="rcard-summary">{d.blurb}</p>}
+    {d.award && <span class="rcard-award">{d.award}</span>}
+    <div class="rcard-links">
+      {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />paper</a>}
+      {!d.pdf && publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />paper</a>}
+      {d.pdf && publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)?.toLowerCase()}</a>}
+      {d.arxiv && !d.pdf && <a href={d.arxiv} target="_blank" rel="noopener"><Icons name="arxiv" />arxiv</a>}
+      {d.conferenceUrl && <a href={d.conferenceUrl} target="_blank" rel="noopener"><Icons name="link" />conference</a>}
+      {d.scholar && <a href={d.scholar} target="_blank" rel="noopener"><Icons name="scholar" />scholar</a>}
+      <a href={href}><Icons name="page" />details</a>
+    </div>
   </div>
-  {d.teaser && <a class="pub-thumb" href={href} aria-hidden="true" tabindex="-1"><img src={d.teaser} alt="" loading="lazy" /></a>}
-</div>
+  {d.teaser && <a class="pitem-thumb" href={href} aria-hidden="true" tabindex="-1"><img src={d.teaser} alt="" loading="lazy" /></a>}
+</article>

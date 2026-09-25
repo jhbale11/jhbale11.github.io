@@ -60,8 +60,12 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
     <p class="lead">I build <b>interactive systems that externalize expert tacit knowledge</b>. My work sits at the intersection of
       <span class="em">human-AI interaction</span> and <span class="em">LLM systems</span>, in domains such as law, medicine, education and writing.</p>
     <p class="pub-note">* denotes equal contribution</p>
-    <div class="rgrid">
-      {selected.map((p) => <PubCard pub={p} />)}
+    <div class="carousel" data-carousel>
+      <button class="car-btn l" type="button" aria-label="Previous" data-dir="-1">←</button>
+      <div class="car-track" data-track>
+        {selected.map((p) => <div class="car-slide"><PubCard pub={p} /></div>)}
+      </div>
+      <button class="car-btn r" type="button" aria-label="Next" data-dir="1">→</button>
     </div>
   </section>
 
@@ -97,3 +101,21 @@ const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces',
     </div>
   </section>
 </Base>
+
+<script>
+  const car = document.querySelector<HTMLElement>('[data-carousel]');
+  const track = car?.querySelector<HTMLElement>('[data-track]');
+  const btns = car?.querySelectorAll<HTMLButtonElement>('.car-btn') ?? [];
+  function step() { const slide = track?.querySelector<HTMLElement>('.car-slide'); return slide ? slide.offsetWidth + 20 : 320; }
+  function update() {
+    if (!track || !car) return;
+    const max = track.scrollWidth - track.clientWidth - 1;
+    car.classList.toggle('at-start', track.scrollLeft <= 0);
+    car.classList.toggle('at-end', track.scrollLeft >= max);
+    btns.forEach((b) => { b.disabled = b.dataset.dir === '-1' ? track.scrollLeft <= 0 : track.scrollLeft >= max; });
+  }
+  btns.forEach((b) => b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: 'smooth' })));
+  track?.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+</script>

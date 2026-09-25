@@ -1,9 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PubCard from '../../components/PubCard.astro';
-import { getPubs } from '../../lib/pubs';
+import PubItem from '../../components/PubItem.astro';
+import { getPubs, groupByYear } from '../../lib/pubs';
 
 const pubs = await getPubs();
+const years = groupByYear(pubs);
 const types = [
   { key: 'all', label: 'all' },
   { key: 'first', label: '⭐ first-author' },
@@ -25,7 +26,7 @@ const tags = [
 <Base title="Publications" description="Publications by Junghwan Kim: HCI, LLM-augmented interfaces for domain experts, and human-AI collaboration.">
   <section class="wrap" style="padding-top: 2rem">
     <h2 class="h2-bar">Publications 📚<a class="side" href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">google scholar ↗</a></h2>
-    <p class="lead">{pubs.length} publications. Every card links to a detail page with the abstract, links and BibTeX.</p>
+    <p class="lead">{pubs.length} publications, newest first. Every entry links to a detail page with the abstract, links and BibTeX.</p>
     <div class="filters" role="group" aria-label="Filter by type">
       <span class="lbl">type</span>
       {types.map((t) => <button type="button" data-type={t.key} aria-pressed={t.key === 'all' ? 'true' : 'false'}>{t.label}</button>)}
@@ -36,29 +37,44 @@ const tags = [
       {tags.map((t) => <button type="button" data-tag={t.key} aria-pressed="false"><i class="dot" style={`background: var(--t-${t.key})`}></i>{t.label}</button>)}
     </div>
     <p class="pub-note">* denotes equal contribution · 🏆 award-winning paper</p>
-    <div class="rgrid" id="pubs">
-      {pubs.map((p) => <PubCard pub={p} />)}
+
+    <div class="pub-layout">
+      <aside class="year-nav" aria-label="Jump to year">
+        {years.map((y, i) => <a href={`#y${y.year}`} class:list={{ 'is-active': i === 0 }} data-year={y.year}>{y.year}</a>)}
+      </aside>
+      <div class="pub-main">
+        {years.map((y) => (
+          <section class="year-sec" id={`y${y.year}`} data-year={y.year}>
+            <p class="year-label">{y.year}</p>
+            <div class="pitem-list">{y.pubs.map((p) => <PubItem pub={p} />)}</div>
+          </section>
+        ))}
+        <p class="empty" id="empty">No publications match these filters.</p>
+      </div>
     </div>
-    <p class="empty" id="empty">No publications match these filters.</p>
   </section>
 </Base>
 
 <script>
   const typeBtns = document.querySelectorAll<HTMLButtonElement>('[data-type]');
   const tagBtns = document.querySelectorAll<HTMLButtonElement>('[data-tag]');
-  const cards = document.querySelectorAll<HTMLElement>('.rcard');
+  const items = document.querySelectorAll<HTMLElement>('.pitem');
+  const secs = document.querySelectorAll<HTMLElement>('.year-sec');
+  const yearLinks = document.querySelectorAll<HTMLAnchorElement>('.year-nav a');
   const empty = document.getElementById('empty');
   let type = 'all', tag = 'all';
   function apply() {
     typeBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.type === type)));
     tagBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
     let n = 0;
-    cards.forEach((c) => {
+    items.forEach((c) => {
       const okType = type === 'all' || (type === 'first' ? c.dataset.first === '1' : c.dataset.type === type);
       const okTag = tag === 'all' || (c.dataset.tags ?? '').split(' ').includes(tag);
       c.hidden = !(okType && okTag);
       if (!c.hidden) n++;
     });
+    secs.forEach((s) => { s.hidden = !s.querySelector('.pitem:not([hidden])'); });
+    yearLinks.forEach((a) => { a.style.display = document.querySelector(`.year-sec[data-year="${a.dataset.year}"]:not([hidden])`) ? '' : 'none'; });
     empty?.classList.toggle('show', n === 0);
     try {
       const q = new URLSearchParams();
@@ -72,4 +88,11 @@ const tags = [
   const q = new URLSearchParams(location.search);
   type = q.get('type') ?? 'all'; tag = q.get('tag') ?? 'all';
   if (type !== 'all' || tag !== 'all') apply();
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) yearLinks.forEach((a) => a.classList.toggle('is-active', a.dataset.year === (e.target as HTMLElement).dataset.year));
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  secs.forEach((s) => obs.observe(s));
 </script>
