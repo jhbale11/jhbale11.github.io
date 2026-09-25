@@ -1,6 +1,8 @@
 ---
 title: "CAT를 넘어 LAT로: LLM 번역 검수를 위한 인터페이스 Co-design"
 titleEn: "Beyond CAT to LAT: Co-designing Interfaces for LLM-Based Machine Translation Post-Editing (MTPE)"
+shortTitle: "CAT → LAT"
+blurb: "Co-designing LLM translation post-editing interfaces with professional translators"
 authors:
   - { name: 김정환, me: true }
   - { name: 서봉원 }

@@ -2,29 +2,24 @@
 import type { CollectionEntry } from 'astro:content';
 import Authors from './Authors.astro';
 import PubLinks from './PubLinks.astro';
+import { groupKey } from '../lib/pubs';
 
-interface Props { pub: CollectionEntry<'publications'>; showThumb?: boolean }
-const { pub, showThumb = true } = Astro.props;
+interface Props { pub: CollectionEntry<'publications'> }
+const { pub } = Astro.props;
 const d = pub.data;
 const href = `/publications/${pub.id}`;
-const hasThumb = showThumb && !!d.teaser;
+const type = groupKey(pub);
+const dotClass = { papers: 'full', short: 'short', preprints: 'preprint', domestic: 'domestic' }[type];
+const notes = [d.format, d.presentation, d.status].filter(Boolean).join(' · ');
 ---
-<li class:list={['pub', { 'has-thumb': hasThumb }]} data-category={d.category} data-first={d.category === 'first-author' ? '1' : '0'}>
-  {hasThumb && (
-    <a class="thumb" href={href} aria-hidden="true" tabindex="-1"><img src={d.teaser} alt="" loading="lazy" /></a>
-  )}
-  <div class="pub-main">
-    {d.award && <div class="pub-top"><span class="award">🏆 {d.award}</span></div>}
-    <div class="pub-title">
-      <a href={href}>{d.title}</a>
-      {d.titleEn && <span class="en">{d.titleEn}</span>}
-    </div>
+<div class:list={['pub-item', { 'has-thumb': !!d.teaser }]} data-first={d.category === 'first-author' ? '1' : '0'} data-type={type} data-year={d.year}>
+  <span class:list={['dot', dotClass]} aria-hidden="true"></span>
+  <div>
+    {d.award && <p class="pub-award">🏆 {d.award}</p>}
+    <p class="pub-title"><a href={href}>{d.title}</a>{d.titleEn && <span class="en">{d.titleEn}</span>}</p>
     <Authors authors={d.authors} />
-    <div class="venue-line">
-      <span class="vtag">{d.venueShort}</span>
-      <span>{d.format}{d.presentation ? ` · ${d.presentation}` : ''}</span>
-      {d.status && <span class="stat">· {d.status}</span>}
-    </div>
+    <p class="pub-venue">{d.venueShort} <span class="note">· {notes}</span></p>
     <PubLinks slug={pub.id} doi={d.doi} url={d.url} pdf={d.pdf} arxiv={d.arxiv} scholar={d.scholar} conferenceUrl={d.conferenceUrl} />
   </div>
-</li>
+  {d.teaser && <a class="pub-thumb" href={href} aria-hidden="true" tabindex="-1"><img src={d.teaser} alt="" loading="lazy" /></a>}
+</div>

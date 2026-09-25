@@ -1,5 +1,7 @@
 ---
 title: "DEBSIM: Productive Friction for Learning Transfer in LLM-Based Argumentation Tutoring"
+shortTitle: "DEBSIM"
+blurb: "Productive friction for learning transfer in LLM argumentation tutoring"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Kieun Park, equal: true }

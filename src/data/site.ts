@@ -3,43 +3,34 @@ export const site = {
   koreanName: '김정환',
   role: 'Ph.D. Candidate',
   lab: 'Human-Centered Computing Lab',
+  labShort: 'HCC Lab',
   labUrl: 'https://hcc.snu.ac.kr',
   program: 'Interdisciplinary Program in Artificial Intelligence',
+  programUrl: 'https://gsai.snu.ac.kr',
   university: 'Seoul National University',
+  universityUrl: 'https://en.snu.ac.kr',
+  advisor: 'Bongwon Suh',
+  advisorUrl: 'https://hcc.snu.ac.kr',
   email: 'jhbale11@snu.ac.kr',
   linkedin: 'https://www.linkedin.com/in/junghwanhcclab',
   scholar: 'https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en',
   github: 'https://github.com/jhbale11',
   cvPdf: '/cv/Junghwan_Kim_CV.pdf',
-  tagline:
-    'I design LLM-augmented interfaces for domain experts, and study how people and AI collaborate.',
-  thesis:
-    'Interface design, not model capability, is the primary bottleneck for expert use of large language models.',
-  interests: [
-    {
-      title: 'LLM-augmented interfaces for experts',
-      body: 'Legal research, clinical care, education and translation: building systems where expert workflows, not chat boxes, shape how models are used.',
-    },
-    {
-      title: 'Human-AI collaboration',
-      body: 'How people model AI partners, when friction helps learning, and what team composition does to coordination.',
-    },
-    {
-      title: 'HCI theory as design grounding',
-      body: 'Reification, distributed cognition, articulation work and boundary infrastructure as lenses for interface design.',
-    },
-  ],
+  tagline: 'HCI researcher building LLM-augmented interfaces for domain experts.',
+  thesis: 'Interface design, not model capability, is the primary bottleneck for expert use of large language models.',
 };
 
-export const news: { date: string; text: string; href?: string; upcoming?: boolean }[] = [
-  { date: 'Nov 2026', upcoming: true, text: 'CaseSense (full paper) and ToneCanvas (poster) will be presented at <b>UIST 2026</b>.', href: '/publications/casesense' },
-  { date: 'Oct 2026', upcoming: true, text: 'Poster on a constraint RAG chatbot for dialysis care will be presented at <b>CSCW 2026</b> (Companion).', href: '/publications/clinic-and-kitchen' },
-  { date: 'Sep 2026', text: 'Awarded the <b>Yulchon AI Young Researcher Scholarship</b> (AI+X) from the Nongshim Yulchon Foundation and SNU AI Institute.' },
-  { date: 'Aug 2026', text: 'RCT on a personalized RAG chatbot for chronic kidney disease patients accepted at the <b>Interactive Journal of Medical Research</b>.', href: '/publications/ckd-rag-chatbot-rct' },
-  { date: 'Jul 2026', text: 'Presented Co-Overcooked (oral) at <b>CogSci 2026</b> in Rio de Janeiro, with a <b>Student Travel Award</b>.', href: '/publications/co-overcooked' },
-  { date: 'Jun 2026', text: 'Presented DEBSIM at <b>ITS 2026</b> in Pafos, Cyprus. It received the <b>Best Full Paper Award</b>.', href: '/publications/debsim' },
-  { date: 'Apr 2026', text: 'Presented two extended abstracts at <b>CHI 2026</b> in Barcelona: nurses meet vibe-coding, and rethinking deletion in learning-based systems.', href: '/publications/nurses-vibe-coding' },
-  { date: 'Feb 2026', text: 'Two extended abstracts accepted to <b>CHI 2026</b>.', href: '/publications/nurses-vibe-coding' },
-  { date: 'Oct 2025', text: 'Presented LegisFlow at <b>UIST 2025</b> in Busan.', href: '/publications/legisflow' },
-  { date: 'Aug 2025', text: 'LegisFlow accepted to <b>UIST 2025</b> as a full paper.', href: '/publications/legisflow' },
+export type NewsItem = { date: string; emoji: string; title: string; text: string; href?: string; upcoming?: boolean };
+
+export const news: NewsItem[] = [
+  { date: 'Nov 2026', emoji: '🎤', upcoming: true, title: 'Presenting CaseSense and ToneCanvas at UIST 2026', text: 'CaseSense (full paper) and ToneCanvas (poster) will be presented at UIST 2026.', href: '/publications/casesense' },
+  { date: 'Oct 2026', emoji: '🧑‍⚕️', upcoming: true, title: 'Poster at CSCW 2026', text: 'Our constraint RAG chatbot for dialysis care will be presented as a poster at the CSCW 2026 Companion.', href: '/publications/clinic-and-kitchen' },
+  { date: 'Sep 2026', emoji: '🎓', title: 'Yulchon AI Young Researcher Scholarship', text: 'Selected for the Yulchon AI Young Researcher Scholarship (AI+X) by the Nongshim Yulchon Foundation and the SNU AI Institute.' },
+  { date: 'Aug 2026', emoji: '📝', title: 'Journal article accepted at the Interactive Journal of Medical Research', text: 'Our mixed-methods RCT of a personalized RAG chatbot for chronic kidney disease patients was accepted at i-JMR.', href: '/publications/ckd-rag-chatbot-rct' },
+  { date: 'Jul 2026', emoji: '🇧🇷', title: 'Co-Overcooked presented at CogSci 2026 in Rio de Janeiro', text: 'Oral presentation at CogSci 2026, supported by a Student Travel Award.', href: '/publications/co-overcooked' },
+  { date: 'Jun 2026', emoji: '🏆', title: 'Best Full Paper Award at ITS 2026', text: 'DEBSIM received the Best Full Paper Award at the International Conference on Intelligent Tutoring Systems in Pafos, Cyprus.', href: '/publications/debsim' },
+  { date: 'Apr 2026', emoji: '🇪🇸', title: 'Two extended abstracts presented at CHI 2026 in Barcelona', text: 'When Nurses Meet Vibe-Coding, and From Objects to Influences.', href: '/publications/nurses-vibe-coding' },
+  { date: 'Feb 2026', emoji: '📄', title: 'Two extended abstracts accepted to CHI 2026', text: 'Papers on vibe-coding in participatory design and on deletion in learning-based systems were accepted to CHI EA 2026.', href: '/publications/nurses-vibe-coding' },
+  { date: 'Oct 2025', emoji: '🎤', title: 'LegisFlow presented at UIST 2025 in Busan', text: 'Presented our temporal-aware LLM interface for Korean legal research.', href: '/publications/legisflow' },
+  { date: 'Aug 2025', emoji: '📄', title: 'LegisFlow accepted to UIST 2025', text: 'Accepted as a full paper at the 38th ACM Symposium on User Interface Software and Technology.', href: '/publications/legisflow' },
 ];

@@ -1,5 +1,7 @@
 ---
 title: "Between the Clinic and the Kitchen: A Constraint RAG Chatbot as Boundary Infrastructure for Dialysis Care"
+shortTitle: "Clinic & Kitchen"
+blurb: "A constraint RAG chatbot as boundary infrastructure for dialysis care"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Dongseok Heo, equal: true }

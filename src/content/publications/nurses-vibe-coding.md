@@ -1,5 +1,7 @@
 ---
 title: "When Nurses Meet Vibe-Coding: Shifting from Problem Talk to Situated Specification in Participatory Design"
+shortTitle: "Nurses × Vibe-Coding"
+blurb: "Real-time LLM prototyping shifts participatory design toward situated specification"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Kieun Park, equal: true }

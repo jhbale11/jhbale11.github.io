@@ -1,5 +1,7 @@
 ---
 title: "시맨틱 문장 분석을 활용한 뉴스 인터페이스 디자인"
+shortTitle: "Semantic News UI"
+blurb: "News interface design with semantic sentence analysis"
 authors:
   - { name: 이상아 }
   - { name: 김정환, me: true }

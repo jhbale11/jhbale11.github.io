@@ -1,5 +1,7 @@
 ---
 title: "Effects of a Personalized Retrieval-Augmented Generation Chatbot on Information Needs in Chronic Kidney Disease Patients: Mixed Methods Randomized Controlled Trial"
+shortTitle: "CKD RAG Chatbot RCT"
+blurb: "Mixed-methods RCT of a personalized RAG chatbot for kidney disease patients"
 authors:
   - { name: Hee Jeong Hwang }
   - { name: Junghwan Kim, me: true }

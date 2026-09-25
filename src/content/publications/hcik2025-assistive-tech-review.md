@@ -1,5 +1,7 @@
 ---
 title: "최근 5년간 장애 학생을 위한 보조 기술의 활용 탐색: 문헌고찰"
+shortTitle: "Assistive Tech Review"
+blurb: "Five-year review of assistive technology use for students with disabilities"
 authors:
   - { name: 송형우 }
   - { name: 서승배 }

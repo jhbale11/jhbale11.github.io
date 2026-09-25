@@ -1,10 +1,16 @@
 ---
+import Icons from './Icons.astro';
 import { site } from '../data/site';
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="wrap">
-    <div>© {year} {site.name} · <a href={site.labUrl} target="_blank" rel="noopener">HCC Lab</a>, Seoul National University</div>
-    <div><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.scholar} target="_blank" rel="noopener">Google Scholar</a> · <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a></div>
+    <div>© {year} {site.name} · Made with ☕ in Seoul · <a href={site.labUrl} target="_blank" rel="noopener">HCC Lab</a>, {site.university}</div>
+    <div class="links">
+      <a href={`mailto:${site.email}`}><Icons name="mail" /> Email</a>
+      <a href={site.scholar} target="_blank" rel="noopener"><Icons name="scholar" /> Scholar</a>
+      <a href={site.linkedin} target="_blank" rel="noopener"><Icons name="linkedin" /> LinkedIn</a>
+      <a href={site.github} target="_blank" rel="noopener"><Icons name="github" /> GitHub</a>
+    </div>
   </div>
 </footer>

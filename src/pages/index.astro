@@ -1,66 +1,133 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icons from '../components/Icons.astro';
-import PubItem from '../components/PubItem.astro';
 import { site, news } from '../data/site';
+import { honors } from '../data/cv';
 import { getPubs } from '../lib/pubs';
+import { publisherLabel } from '../lib/links';
 
 const pubs = await getPubs();
 const selected = pubs.filter((p) => p.data.selected);
+const upcoming = news.filter((n) => n.upcoming);
+const past = news.filter((n) => !n.upcoming);
+const interests = ['🤝 Human-AI Interaction', '🧩 LLM-Augmented Interfaces', '⚖️ Legal Tech', '🩺 Health Informatics', '📚 Education', '✍️ Writing & Translation'];
 ---
 <Base>
-  <section class="wrap profile">
-    <img src="/images/profile.jpg" alt={`Portrait of ${site.name}`} width="200" height="200" />
+  <section class="wrap hero">
     <div>
-      <h1>{site.name}<span class="ko">{site.koreanName}</span></h1>
-      <div class="role">{site.role} · <a href={site.labUrl} target="_blank" rel="noopener">{site.lab}</a>, Seoul National University</div>
+      <h1 class="home-title">{site.name}<span class="ko" lang="ko">{site.koreanName}</span></h1>
+      <p class="home-sub">👋 HCI researcher · {site.role} at {site.university}</p>
       <div class="bio">
         <p>
-          I am a Ph.D. candidate in the <strong>{site.program}</strong> at Seoul National University, advised by
-          <strong>Prof. Bongwon Suh</strong> in the <a href={site.labUrl} target="_blank" rel="noopener">Human-Centered Computing Lab</a>.
-          My research spans <strong>Human-Computer Interaction</strong>, <strong>LLM-augmented interface design for domain experts</strong>,
-          and <strong>human-AI collaboration</strong>.
+          I am an HCI researcher and a Ph.D. candidate in the
+          <a href={site.programUrl} target="_blank" rel="noopener">Interdisciplinary Program in Artificial Intelligence</a> at
+          <a href={site.universityUrl} target="_blank" rel="noopener"><img class="aff" src="/images/logo/snu.svg" alt="" />Seoul National University</a>,
+          advised by <a href={site.advisorUrl} target="_blank" rel="noopener">Bongwon Suh</a> in the
+          <a href={site.labUrl} target="_blank" rel="noopener"><img class="aff" src="/images/logo/hcc.png" alt="" />Human-Centered Computing Lab</a>.
         </p>
         <p>
-          I build and study systems with lawyers, clinicians, nurses, teachers, translators and writers. The thread through this work
-          is a simple claim: <em>{site.thesis}</em> I ground interface decisions in HCI theory such as reification, distributed
-          cognition, articulation work and boundary infrastructure.
+          My research lies at the intersection of HCI and AI. I design and build <strong>LLM-augmented interfaces for domain experts</strong>,
+          working with lawyers, clinicians, nurses, teachers, translators and writers, and I study how people and AI collaborate.
+          The thread through this work is a simple claim: <em>{site.thesis}</em>
+        </p>
+        <p>
+          I received my B.S. in Electrical &amp; Computer Engineering and B.S. in Information Science &amp; Culture at
+          <a href={site.universityUrl} target="_blank" rel="noopener"><img class="aff" src="/images/logo/snu.svg" alt="" />Seoul National University</a>.
+          Previously, I worked on explainable AI for financial time series at Qraft Technologies. I am honored to be a
+          <strong>Yulchon AI Young Researcher Scholar</strong> (2026).
         </p>
       </div>
-      <div class="icons">
-        <a href={`mailto:${site.email}`} title="Email"><Icons name="mail" /> Email</a>
-        <a href={site.scholar} target="_blank" rel="noopener" title="Google Scholar"><Icons name="scholar" /> Scholar</a>
-        <a href={site.linkedin} target="_blank" rel="noopener" title="LinkedIn"><Icons name="linkedin" /> LinkedIn</a>
-        <a href={site.github} target="_blank" rel="noopener" title="GitHub"><Icons name="github" /> GitHub</a>
-        <a href={site.cvPdf} target="_blank" rel="noopener" title="CV (PDF)"><Icons name="cv" /> CV</a>
+      <div class="contact-line">
+        <a href={`mailto:${site.email}`}><Icons name="mail" />{site.email}</a>
+        <a href={site.scholar} target="_blank" rel="noopener"><Icons name="scholar" />Google Scholar</a>
+        <a href={site.linkedin} target="_blank" rel="noopener"><Icons name="linkedin" />LinkedIn</a>
+        <a href={site.github} target="_blank" rel="noopener"><Icons name="github" />GitHub</a>
+        <a href={site.cvPdf} target="_blank" rel="noopener"><Icons name="cv" />CV</a>
       </div>
     </div>
+    <img class="hero-photo" src="/images/profile.jpg" alt={`Portrait of ${site.name}`} width="220" height="220" />
   </section>
 
-  <section class="wrap sec">
-    <div class="sec-head"><h2>Research interests</h2></div>
-    <div class="chips">
-      {['Human-AI Interaction', 'LLM-Augmented Interfaces', 'Domain Experts', 'Human-AI Collaboration', 'Legal Tech', 'Health Informatics', 'Education', 'Creative Writing & Translation'].map((c) => <span class="chip">{c}</span>)}
+  <section class="wrap section">
+    <p class="section-title"><span><span class="emoji">📌</span>Selected publications</span><a href="/publications">View all {pubs.length} →</a></p>
+    <div class="scroller-shell">
+      <button class="scroll-btn l" type="button" aria-label="Scroll left" data-dir="-1">←</button>
+      <div class="scroller" data-scroller>
+        <div class="scroller-inner">
+          {selected.map((p) => {
+            const d = p.data;
+            const publisher = d.doi ?? (d.url && d.url !== d.arxiv ? d.url : undefined);
+            return (
+              <div class="pcard">
+                <a class="pcard-img" href={`/publications/${p.id}`} aria-hidden="true" tabindex="-1">
+                  {d.teaser ? <img src={d.teaser} alt="" loading="lazy" /> : <span class="ph">📄</span>}
+                </a>
+                <div class="pcard-body">
+                  <div class="pcard-head">
+                    <p class="pcard-title"><a href={`/publications/${p.id}`}>{d.shortTitle ?? d.title}</a></p>
+                    <span class="venue-chip">{d.venueShort.replace(/ (20)(\d\d)/, " '$2")}</span>
+                  </div>
+                  <p class="pcard-desc">{d.blurb}</p>
+                  {d.award && <p class="pcard-award">🏆 {d.award}</p>}
+                  <p class="pcard-meta">
+                    <a href={`/publications/${p.id}`}><Icons name="page" />Details</a>
+                    {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />PDF</a>}
+                    {publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)}</a>}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <button class="scroll-btn r" type="button" aria-label="Scroll right" data-dir="1">→</button>
     </div>
   </section>
 
-  <section class="wrap sec">
-    <div class="sec-head"><h2>📌 News</h2></div>
-    <ul class="news">
-      {news.map((n) => (
-        <li class:list={{ upcoming: n.upcoming }}><span class="d">{n.date}</span><span>{n.href ? <a href={n.href} set:html={n.text} /> : <span set:html={n.text} />}{n.upcoming && <span class="soon">upcoming</span>}</span></li>
+  <section class="wrap section two-col">
+    <div>
+      <p class="section-title"><span><span class="emoji">📰</span>News</span></p>
+      {past.map((n) => (
+        <div class="news-item">
+          <span class="emoji" aria-hidden="true">{n.emoji}</span>
+          <div>
+            <p class="news-date">{n.date}</p>
+            <p class="news-title">{n.href ? <a href={n.href}>{n.title}</a> : n.title}</p>
+            <p class="news-text">{n.text}</p>
+          </div>
+        </div>
       ))}
-    </ul>
-  </section>
-
-  <section class="wrap sec">
-    <div class="sec-head">
-      <h2>Selected publications</h2>
-      <a href="/publications">All {pubs.length} publications →</a>
     </div>
-    <p class="legend"><sup>†</sup> equal contribution</p>
-    <ul class="plist">
-      {selected.map((p) => <PubItem pub={p} />)}
-    </ul>
+    <div>
+      <p class="section-title"><span><span class="emoji">🗓️</span>Upcoming</span></p>
+      <ul class="side-list">
+        {upcoming.map((n) => (
+          <li><span aria-hidden="true">{n.emoji}</span><span><span class="d">{n.date}</span>{n.href ? <a href={n.href}>{n.title}</a> : n.title}</span></li>
+        ))}
+      </ul>
+      <p class="section-title" style="margin-top: 2rem"><span><span class="emoji">🏅</span>Honors</span></p>
+      <ul class="side-list">
+        {honors.slice(0, 3).map((h) => (
+          <li><span aria-hidden="true">🏆</span><span><span class="d">{h.when}</span>{h.href ? <a href={h.href}>{h.title}</a> : h.title}</span></li>
+        ))}
+      </ul>
+      <p class="section-title" style="margin-top: 2rem"><span><span class="emoji">🔍</span>Interests</span></p>
+      <div class="interests">{interests.map((t) => <span class="tag">{t}</span>)}</div>
+    </div>
   </section>
 </Base>
+
+<script>
+  const shell = document.querySelector<HTMLElement>('.scroller-shell');
+  const sc = shell?.querySelector<HTMLElement>('[data-scroller]');
+  const btns = shell?.querySelectorAll<HTMLButtonElement>('.scroll-btn') ?? [];
+  function update() {
+    if (!sc) return;
+    const max = sc.scrollWidth - sc.clientWidth - 1;
+    btns.forEach((b) => { b.disabled = b.dataset.dir === '-1' ? sc.scrollLeft <= 0 : sc.scrollLeft >= max; });
+  }
+  btns.forEach((b) => b.addEventListener('click', () => sc?.scrollBy({ left: Number(b.dataset.dir) * 460, behavior: 'smooth' })));
+  sc?.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+</script>

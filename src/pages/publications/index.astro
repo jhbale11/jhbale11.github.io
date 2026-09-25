@@ -1,43 +1,71 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PubItem from '../../components/PubItem.astro';
-import { getPubs, groupByType } from '../../lib/pubs';
+import { getPubs, groupByYear } from '../../lib/pubs';
 
 const pubs = await getPubs();
-const groups = groupByType(pubs);
-const firstCount = pubs.filter((p) => p.data.category === 'first-author').length;
+const years = groupByYear(pubs);
+const filters = [
+  { key: 'all', label: 'All' },
+  { key: 'first', label: '⭐ First-author' },
+  { key: 'papers', label: 'Full papers & journals' },
+  { key: 'short', label: 'Posters & extended abstracts' },
+  { key: 'preprints', label: 'Preprints' },
+  { key: 'domestic', label: '🇰🇷 Domestic' },
+];
 ---
 <Base title="Publications" description="Publications by Junghwan Kim: HCI, LLM-augmented interfaces for domain experts, and human-AI collaboration.">
-  <section class="wrap" style="padding-top: 2.5rem">
-    <div class="sec-head" style="margin-bottom: 0.5rem">
-      <h1>Publications</h1>
-      <a href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar →</a>
-    </div>
-    <p class="muted" style="max-width: 60ch">{pubs.length} publications. Each entry has its own page with the abstract, links and BibTeX.</p>
-    <div class="toolbar">
-      <button class="toggle" type="button" aria-pressed="false" data-first-toggle><span class="knob" aria-hidden="true"></span>First-author only ({firstCount})</button>
-      <span class="legend" style="margin: 0"><sup>†</sup> equal contribution · 🏆 award</span>
-    </div>
+  <section class="wrap" style="padding-top: 2rem">
+    <p class="page-title">📚 Publications</p>
+    <p class="small muted" style="margin-top: 0.25rem">{pubs.length} publications · <sup>†</sup> equal contribution · <a href="https://scholar.google.com/citations?user=j03Cb5MAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></p>
 
-    {groups.map((g) => (
-      <div class="group" data-group={g.key}>
-        <h2>{g.label}</h2>
-        <ul class="plist">{g.pubs.map((p) => <PubItem pub={p} />)}</ul>
+    <div class="pub-layout">
+      <aside class="year-nav" aria-label="Jump to year">
+        {years.map((y, i) => <a href={`#y${y.year}`} class:list={{ 'is-active': i === 0 }} data-year={y.year}>{y.year}</a>)}
+      </aside>
+      <div class="pub-main">
+        <div class="filter-row" role="group" aria-label="Filter">
+          {filters.map((f) => <button type="button" data-filter={f.key} aria-pressed={f.key === 'all' ? 'true' : 'false'}>{f.label}</button>)}
+        </div>
+        <div class="type-legend">
+          <span><i class="dot full"></i>Full paper / journal</span>
+          <span><i class="dot short"></i>Poster / extended abstract</span>
+          <span><i class="dot preprint"></i>Preprint</span>
+          <span><i class="dot domestic"></i>Domestic</span>
+        </div>
+        {years.map((y) => (
+          <section class="year-sec" id={`y${y.year}`} data-year={y.year}>
+            <p class="year-label">{y.year}</p>
+            {y.pubs.map((p) => <PubItem pub={p} />)}
+          </section>
+        ))}
       </div>
-    ))}
+    </div>
   </section>
 </Base>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('[data-first-toggle]');
-  const items = document.querySelectorAll<HTMLElement>('.pub');
-  const groups = document.querySelectorAll<HTMLElement>('.group');
-  function apply(on: boolean) {
-    btn?.setAttribute('aria-pressed', String(on));
-    items.forEach((el) => { el.hidden = on && el.dataset.first !== '1'; });
-    groups.forEach((g) => { g.hidden = !g.querySelector('.pub:not([hidden])'); });
-    try { history.replaceState(null, '', on ? '?first=1' : location.pathname); } catch {}
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-row button');
+  const items = document.querySelectorAll<HTMLElement>('.pub-item');
+  const secs = document.querySelectorAll<HTMLElement>('.year-sec');
+  const yearLinks = document.querySelectorAll<HTMLAnchorElement>('.year-nav a');
+  function apply(f: string) {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
+    items.forEach((el) => {
+      el.hidden = f === 'all' ? false : f === 'first' ? el.dataset.first !== '1' : el.dataset.type !== f;
+    });
+    secs.forEach((s) => { s.hidden = !s.querySelector('.pub-item:not([hidden])'); });
+    yearLinks.forEach((a) => { a.style.display = document.querySelector(`.year-sec[data-year="${a.dataset.year}"]:not([hidden])`) ? '' : 'none'; });
+    try { history.replaceState(null, '', f === 'all' ? location.pathname : `?filter=${f}`); } catch {}
   }
-  btn?.addEventListener('click', () => apply(btn.getAttribute('aria-pressed') !== 'true'));
-  if (new URLSearchParams(location.search).get('first') === '1') apply(true);
+  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')));
+  const init = new URLSearchParams(location.search).get('filter');
+  if (init && [...buttons].some((b) => b.dataset.filter === init)) apply(init);
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) yearLinks.forEach((a) => a.classList.toggle('is-active', a.dataset.year === (e.target as HTMLElement).dataset.year));
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  secs.forEach((s) => obs.observe(s));
 </script>

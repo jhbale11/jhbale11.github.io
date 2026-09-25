@@ -14,22 +14,22 @@ const cats = Object.keys(categoryLabel) as (keyof typeof categoryLabel)[];
   <section class="cv">
     <div class="cv-head">
       <div>
-        <h1>Curriculum Vitae</h1>
-        <p class="muted" style="margin-top: 0.3rem">{site.name} ({site.koreanName}) · {site.role}, {site.lab}, {site.university}</p>
+        <p class="page-title">📄 Curriculum Vitae</p>
+        <p class="small muted" style="margin-top: 0.15rem">{site.name} ({site.koreanName}) · {site.role}, {site.lab}, {site.university}</p>
       </div>
-      <a class="btn pri" href={site.cvPdf} target="_blank" rel="noopener"><Icons name="pdf" /> Download PDF</a>
+      <a class="btn" href={site.cvPdf} target="_blank" rel="noopener"><Icons name="pdf" /> Download PDF</a>
     </div>
 
     <div class="cv-sec">
-      <h2>Research interests</h2>
-      <p class="muted">Human-Computer Interaction; LLM-augmented interface design for domain experts; Human-AI collaboration. My work advances the thesis that <em>{site.thesis.replace(/\.$/, '')}</em>, grounded in HCI theory (reification, distributed cognition, articulation work, boundary infrastructure).</p>
+      <p class="section-title"><span><span class="emoji">🔍</span>Research interests</span></p>
+      <p class="small" style="font-weight: 300">Human-Computer Interaction; LLM-augmented interface design for domain experts; Human-AI collaboration. My work advances the thesis that <em>{site.thesis.replace(/\.$/, '')}</em>, grounded in HCI theory (reification, distributed cognition, articulation work, boundary infrastructure).</p>
     </div>
 
     <div class="cv-sec">
-      <h2>Education</h2>
+      <p class="section-title"><span><span class="emoji">🎓</span>Education</span></p>
       {education.map((e) => (
         <div class="row">
-          <div><div class="t">{e.school}{e.unit ? <span class="s">, {e.unit}</span> : null}</div><div class="s">{e.degree}</div></div>
+          <div><div class="t"><img class="aff" src="/images/logo/snu.svg" alt="" style="margin-left:0" />{e.school}{e.unit ? <span class="s">, {e.unit}</span> : null}</div><div class="s">{e.degree}</div></div>
           <div class="w">{e.period}<br />{e.place}</div>
           <ul>{e.notes.map((n) => <li>{n}</li>)}</ul>
         </div>
@@ -37,19 +37,19 @@ const cats = Object.keys(categoryLabel) as (keyof typeof categoryLabel)[];
     </div>
 
     <div class="cv-sec cv-pubs">
-      <h2>Publications</h2>
-      <p class="legend"><sup>†</sup> equal contribution / co-first author · 🏆 award-winning paper · <a href="/publications">Browse with abstracts and BibTeX →</a></p>
+      <p class="section-title"><span><span class="emoji">📚</span>Publications</span><a href="/publications">With abstracts &amp; BibTeX →</a></p>
+      <p class="small muted" style="font-size: 0.78rem"><sup>†</sup> equal contribution / co-first author · 🏆 award-winning paper</p>
       {cats.map((c) => (
         <div>
           <h3>{categoryLabel[c]}</h3>
           <ol>
             {byCat(c).map((p) => (
               <li>
-                <Authors authors={p.data.authors} inline /> <a href={`/publications/${p.id}`} style="font-weight: 700; color: var(--text)">{p.data.title}</a>.
+                <Authors authors={p.data.authors} inline /> <a class="pt" href={`/publications/${p.id}`}>{p.data.title}</a>.
                 <span class="muted"><em>{p.data.venue}</em>{p.data.pages ? `, ${p.data.pages}` : ''}, {p.data.year}.</span>
                 {p.data.presentation && <span class="muted"> ({p.data.presentation})</span>}
                 {p.data.status && <span class="muted"> ({p.data.status.toLowerCase()})</span>}
-                {p.data.award && <span style="color: var(--gold); font-weight: 700"> 🏆 {p.data.award}</span>}
+                {p.data.award && <span style="color: var(--gold); font-weight: 400"> 🏆 {p.data.award}</span>}
               </li>
             ))}
           </ol>
@@ -58,28 +58,28 @@ const cats = Object.keys(categoryLabel) as (keyof typeof categoryLabel)[];
     </div>
 
     <div class="cv-sec">
-      <h2>Honors &amp; awards</h2>
+      <p class="section-title"><span><span class="emoji">🏆</span>Honors &amp; awards</span></p>
       {honors.map((h) => (
-        <div class="row"><div><div class="t">{h.href ? <a href={h.href} style="color: inherit">{h.title}</a> : h.title}</div><div class="s">{h.org}</div></div><div class="w">{h.when}</div></div>
+        <div class="row"><div><div class="t">{h.href ? <a href={h.href}>{h.title}</a> : h.title}</div><div class="s">{h.org}</div></div><div class="w">{h.when}</div></div>
       ))}
     </div>
 
     <div class="cv-sec">
-      <h2>Research &amp; professional experience</h2>
+      <p class="section-title"><span><span class="emoji">💼</span>Research &amp; professional experience</span></p>
       {experience.map((x) => (
         <div class="row"><div><div class="t">{x.role}</div><div class="s">{x.org}</div></div><div class="w">{x.period}</div><div class="b">{x.body}</div></div>
       ))}
     </div>
 
     <div class="cv-sec">
-      <h2>Teaching</h2>
+      <p class="section-title"><span><span class="emoji">🧑‍🏫</span>Teaching</span></p>
       {teaching.map((t) => (
         <div class="row"><div><div class="t">{t.role}</div><div class="s">{t.course}</div></div><div class="w">{t.period}</div></div>
       ))}
     </div>
 
     <div class="cv-sec skills">
-      <h2>Skills &amp; certifications</h2>
+      <p class="section-title"><span><span class="emoji">🛠️</span>Skills &amp; certifications</span></p>
       <dl>
         {skills.map((s) => <div><dt>{s.label}</dt><dd>{s.body}</dd></div>)}
         <div><dt>Certifications</dt><dd>{certifications.join('; ')}</dd></div>

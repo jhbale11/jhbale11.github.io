@@ -1,5 +1,7 @@
 ---
 title: "\"Ask Sir Oliver Ingham\": LLM-based Social Simulations for History Education"
+shortTitle: "Ask Sir Oliver Ingham"
+blurb: "LLM-based social simulations for history education"
 authors:
   - { name: Kieun Park }
   - { name: Hyungwoo Song }

@@ -1,5 +1,7 @@
 ---
 title: "From Objects to Influences: Rethinking Deletion in Learning-Based Systems"
+shortTitle: "Objects to Influences"
+blurb: "Rethinking deletion in learning-based systems"
 authors:
   - { name: Jeongwoo Ryu }
   - { name: Hyungwoo Song }

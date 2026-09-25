@@ -15,12 +15,12 @@ const { pub, prev, next } = Astro.props;
 const d = pub.data;
 const { Content } = await render(pub);
 const bib = bibtex(pub);
-const description = `${d.title} (${d.venueShort}). ${d.authors.map((a) => a.name).join(', ')}.`;
+const description = d.blurb ?? `${d.title} (${d.venueShort}).`;
 const hasEqual = d.authors.some((a) => a.equal);
 const publisher = d.doi ?? (d.url && d.url !== d.arxiv ? d.url : undefined);
-const pubLabel = publisherLabel(publisher);
+const notes = [d.format, d.presentation, d.status].filter(Boolean).join(' · ');
 ---
-<Base title={d.title} description={description} image={d.teaser ?? '/images/profile.jpg'} type="article">
+<Base title={d.shortTitle ?? d.title} description={description} image={d.teaser ?? '/images/profile.jpg'} type="article">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org', '@type': 'ScholarlyArticle', headline: d.title,
@@ -31,28 +31,21 @@ const pubLabel = publisherLabel(publisher);
   </Fragment>
 
   <article class="paper">
-    <div class="crumbs"><a href="/publications">Publications</a> / {d.venueShort}</div>
+    <a class="back" href="/publications">← publications</a>
     <h1>{d.title}</h1>
-    {d.titleEn && <div class="en-title">{d.titleEn}</div>}
+    {d.titleEn && <p class="en-title">{d.titleEn}</p>}
     <Authors authors={d.authors} />
-    {hasEqual && <div class="small muted" style="margin-top: 0.15rem"><sup>†</sup> equal contribution</div>}
-    <div class="venue-line" style="margin-top: 0.7rem">
-      <span class="vtag">{d.venueShort}</span>
-      <span>{d.venue}{d.pages ? `, pp. ${d.pages}` : ''}</span>
-    </div>
-    <div class="venue-line" style="margin-top: 0.4rem">
-      {d.award && <span class="award">🏆 {d.award}</span>}
-      <span class="stat">{d.format}{d.presentation ? ` · ${d.presentation}` : ''}{d.status ? ` · ${d.status}` : ''}</span>
-    </div>
-    <div class="actions">
-      {d.pdf && <a class="btn pri" href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" /> PDF</a>}
-      {publisher && <a class:list={['btn', { pri: !d.pdf }]} href={publisher} target="_blank" rel="noopener"><Icons name="doi" /> {pubLabel}{d.doi ? ' (DOI)' : ''}</a>}
-      {d.arxiv && <a class:list={['btn', { pri: !d.pdf && !publisher }]} href={d.arxiv} target="_blank" rel="noopener"><Icons name="arxiv" /> arXiv</a>}
-      {d.conferenceUrl && <a class="btn" href={d.conferenceUrl} target="_blank" rel="noopener"><Icons name="link" /> {d.conferenceName ?? 'Conference site'}</a>}
-      {d.scholar && <a class="btn" href={d.scholar} target="_blank" rel="noopener"><Icons name="scholar" /> Google Scholar</a>}
+    {hasEqual && <p class="small muted" style="font-size: 0.75rem; margin: 0.1rem 0 0"><sup>†</sup> equal contribution</p>}
+    <p class="pub-venue">{d.venue}{d.pages ? `, pp. ${d.pages}` : ''}<br /><span class="note">{d.venueShort} · {notes}</span></p>
+    {d.award && <p class="pub-award">🏆 {d.award}</p>}
+    <div class="detail-meta">
+      {d.pdf && <a href={d.pdf} target="_blank" rel="noopener"><Icons name="pdf" />PDF</a>}
+      {publisher && <a href={publisher} target="_blank" rel="noopener"><Icons name="doi" />{publisherLabel(publisher)}{d.doi ? ' (DOI)' : ''}</a>}
+      {d.arxiv && <a href={d.arxiv} target="_blank" rel="noopener"><Icons name="arxiv" />arXiv</a>}
+      {d.conferenceUrl && <a href={d.conferenceUrl} target="_blank" rel="noopener"><Icons name="link" />{d.conferenceName ?? 'Conference'}</a>}
+      {d.scholar && <a href={d.scholar} target="_blank" rel="noopener"><Icons name="scholar" />Google Scholar</a>}
       {!d.pdf && !publisher && !d.arxiv && !d.conferenceUrl && <span class="small muted">Links will be added once the paper is published.</span>}
     </div>
-
 
     {d.teaser && (
       <figure class="figure">
@@ -61,26 +54,20 @@ const pubLabel = publisherLabel(publisher);
       </figure>
     )}
 
-    <div class="prose">
-      <h2>{d.abstractSource === 'official' ? 'Abstract' : 'Overview'}</h2>
-      <Content />
-    </div>
-    {d.abstractSource === 'overview' && <p class="note">The official abstract will be posted once the paper is published. This overview is a short description of the work.</p>}
+    <p class="section-title"><span><span class="emoji">📝</span>{d.abstractSource === 'official' ? 'Abstract' : 'Overview'}</span></p>
+    <div class="prose"><Content /></div>
+    {d.abstractSource === 'overview' && <p class="notice">The official abstract will be posted once the paper is published. This overview is a short description of the work.</p>}
 
-    {d.areas.length > 0 && (
-      <div class="kw chips">
-        {d.areas.map((a) => <span class="chip">{a}</span>)}
-      </div>
-    )}
+    {d.areas.length > 0 && <div class="kw interests">{d.areas.map((a) => <span class="tag">{a}</span>)}</div>}
 
     <div class="bib">
-      <div class="bib-head"><h3>BibTeX</h3><button class="copy" type="button" data-copy>Copy</button></div>
+      <div class="bib-head"><p class="section-title" style="margin: 0; border: 0; padding: 0"><span><span class="emoji">🔖</span>BibTeX</span></p><button class="copy" type="button" data-copy>Copy</button></div>
       <pre><code>{bib}</code></pre>
     </div>
 
     <nav class="pager" aria-label="Adjacent publications">
-      {prev ? <a href={`/publications/${prev.id}`}><span>← Newer</span><b>{prev.data.title}</b></a> : <span />}
-      {next ? <a class="r" href={`/publications/${next.id}`}><span>Older →</span><b>{next.data.title}</b></a> : <span />}
+      {prev ? <a href={`/publications/${prev.id}`}><span>← Newer</span><b>{prev.data.shortTitle ?? prev.data.title}</b></a> : <span />}
+      {next ? <a class="r" href={`/publications/${next.id}`}><span>Older →</span><b>{next.data.shortTitle ?? next.data.title}</b></a> : <span />}
     </nav>
   </article>
 </Base>

@@ -1,5 +1,7 @@
 ---
 title: "LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi-Agent Pathfinding"
+shortTitle: "LLMDR"
+blurb: "LLM-driven deadlock detection and resolution in multi-agent pathfinding"
 authors:
   - { name: Seungbae Seo }
   - { name: Junghwan Kim, me: true }

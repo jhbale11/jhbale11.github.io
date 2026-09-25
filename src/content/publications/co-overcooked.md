@@ -1,5 +1,7 @@
 ---
 title: "Co-Overcooked: Cognitive Constraints on Partner Modeling in Human-AI Team Composition"
+shortTitle: "Co-Overcooked"
+blurb: "Cognitive constraints on partner modeling in human-AI teams"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Dongseok Heo, equal: true }

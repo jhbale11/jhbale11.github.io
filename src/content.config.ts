@@ -6,6 +6,8 @@ const publications = defineCollection({
   schema: z.object({
     title: z.string(),
     titleEn: z.string().optional(),
+    shortTitle: z.string().optional(),
+    blurb: z.string().optional(),
     authors: z.array(
       z.object({
         name: z.string(),

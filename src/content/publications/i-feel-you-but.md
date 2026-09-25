@@ -1,5 +1,7 @@
 ---
 title: "\"I feel you, but…\": Exploring the Boundaries of Pragmatic Markers in Real-time Voice-based Conversational Agents"
+shortTitle: "I feel you, but…"
+blurb: "Pragmatic markers in real-time voice conversational agents"
 authors:
   - { name: Minjeong Shin }
   - { name: Jaehoon Choi }

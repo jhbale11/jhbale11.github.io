@@ -1,5 +1,7 @@
 ---
 title: "LegisFlow: Enhancing Korean Legal Research with Temporal-Aware LLM Interfaces"
+shortTitle: "LegisFlow"
+blurb: "Temporal-aware LLM interfaces for Korean statutory research"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Hyeonseok Jeon, equal: true }

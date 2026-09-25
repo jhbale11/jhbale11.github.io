@@ -1,5 +1,7 @@
 ---
 title: "CaseSense: Mapping the Legal Case Landscape with Multi-Dimensional Visual Exploration"
+shortTitle: "CaseSense"
+blurb: "Multi-dimensional visual exploration of legal case landscapes"
 authors:
   - { name: Junghwan Kim, me: true }
   - { name: Hyeonseok Jeon }

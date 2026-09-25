@@ -1,5 +1,7 @@
 ---
 title: "MAS-LitEval: Multi-Agent System for Literary Translation Quality Assessment"
+shortTitle: "MAS-LitEval"
+blurb: "Multi-agent LLM evaluation of literary translation quality"
 authors:
   - { name: Junghwan Kim, me: true }
   - { name: Kieun Park }

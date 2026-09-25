@@ -1,5 +1,7 @@
 ---
 title: "ToneCanvas: Visually Painting Character Tone and Terms for Narrative Consistency"
+shortTitle: "ToneCanvas"
+blurb: "Painting character tone and terms for narrative consistency"
 authors:
   - { name: Junghwan Kim, me: true, equal: true }
   - { name: Hana Oh, equal: true }

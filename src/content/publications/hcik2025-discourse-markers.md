@@ -1,5 +1,7 @@
 ---
 title: "LLM 기반 음성 어시스턴트의 한국어 담화 표지 활용을 위한 디자인 가이드라인 연구"
+shortTitle: "Korean Discourse Markers"
+blurb: "Design guidelines for discourse markers in LLM voice assistants"
 authors:
   - { name: 신민정 }
   - { name: 최재훈 }
