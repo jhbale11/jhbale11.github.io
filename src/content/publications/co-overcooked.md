@@ -19,16 +19,14 @@ url: "https://escholarship.org/uc/item/39n1g8g6"
 teaser: "/images/publications/co-overcooked.webp"
 teaserAlt: "Co-Overcooked task environment: sequential soup preparation workflow, pre-game planning chat, and the main game grid where four players coordinate in real time"
 tags: [hai, agents]
-areas: [Human-AI Teaming, Cognitive Science, Partner Modeling]
+pdf: "/papers/2026-co-overcooked.pdf"
+areas: [Human-AI Collaboration, Partner Modeling, Shared Mental Models, Team Composition, Cognitive Load]
 selected: true
 order: 3
-abstractSource: overview
 scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=j03Cb5MAAAAJ&citation_for_view=j03Cb5MAAAAJ:YsMSGLbcyi4C"
 conferenceUrl: "https://cognitivesciencesociety.org/cogsci-2026/"
 conferenceName: "CogSci 2026, Rio de Janeiro"
 bibkey: kim2026coovercooked
 ---
 
-Co-Overcooked studies how people model their partners when a team mixes humans and AI agents. The task environment extends the Overcooked coordination game to four players who must prepare soups through a sequential workflow: ingredients are gathered, cooked, plated and delivered, and every step depends on someone else finishing theirs. Before each round, teammates can coordinate in a pre-game planning chat, and during the round they act together on a shared grid in real time.
-
-By varying the composition of the team, the study asks what cognitive constraints shape how a person tracks who their partners are, what those partners are likely to do, and how much coordination effort is worth investing. The paper was accepted for oral presentation at CogSci 2026 and received a Student Travel Award.
+Effective collaboration requires accurate mental models of one's partners. Current AI agents, however, may not model humans the way humans model each other under real-time constraints, creating an asymmetry in human-AI teamwork. Prior research has focused on one-human-one-AI settings, leaving open how coordination changes when multiple humans work with multiple AI agents simultaneously. We developed Co-Overcooked, a four-player cooking game where teams of humans and LLM agents must coordinate in real time. In a within-subjects experiment (N=40), participants experienced four team compositions varying in human-to-AI ratio: four humans (H4A0), three humans with one AI (H3A1), two humans with two AIs (H2A2), and one human with three AIs (H1A3). Results revealed non-linear patterns: H3A1 and H1A3 teams performed worse than pure AI teams, while H2A2 teams showed better performance through spontaneous one-human-one-AI pairing strategies. We identified expectation conflict, where multiple humans hold divergent models of a shared AI partner, as a coordination difficulty specific to hybrid teams, and propose cognitive ownership as a design principle for human-AI team configuration.
